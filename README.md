@@ -56,10 +56,6 @@ Join Ne.app's [User Group](https://discord.gg/uD76Qweght) to and chat with users
 
 Ne.app NeKernel is licensed under the [Apache-2.0 License](LICENSE.txt).
 
-## Professional Services
-
-Ne.app NeKernel services are available under Ne.app, custom module development, et al for your use cases.
-
 ---
 
 <div align="center">

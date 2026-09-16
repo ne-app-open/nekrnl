@@ -1,0 +1,11 @@
+Roll your drivers
+=================
+
+We encourage you to develop your own drivers, that is. 
+You should respect the guidelines before doing so.
+
+- Link against DDK.dll.
+- Use Modern C or C++.
+- Use a Modern C/C++ compiler.
+- Use the DDKs API.
+- Never, ever interact with minkernel et al directly.
