@@ -24,6 +24,6 @@ EXTERN_C void* memcpy(void* dst, const void* src, ksz_t len) {
   return dst;
 }
 
-EXTERN_C Int32 strcmp(const char* a, const char* b) {
+EXTERN_C Int32 strcmp(const Char* a, const Char* b) {
   return Ne::Kernel::rt_string_cmp(a, b, rt_string_len(a));
 }

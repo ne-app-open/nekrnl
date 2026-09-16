@@ -47,7 +47,7 @@ namespace HAL {
       auto FreeBitMap(VoidPtr page_ptr) -> Bool {
         if (this->IsBitMap(page_ptr) == No) return No;
 
-        UIntPtr* ptr_bit_set = reinterpret_cast<UIntPtr*>(page_ptr) - kBitMapSz;
+        volatile UIntPtr* ptr_bit_set = reinterpret_cast<volatile UIntPtr*>(page_ptr) - kBitMapSz;
 
         if (!ptr_bit_set) return No;
         if (ptr_bit_set[kBitMapMagIdx] != kBitMapMagic) return No;
