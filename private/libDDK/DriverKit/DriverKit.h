@@ -68,13 +68,4 @@ DDK_EXTERN struct DDK_OBJECT_MANIFEST* ke_get_obj(const int slot, const char* na
 /// @return returned object.
 DDK_EXTERN void* ke_set_obj(const int32_t slot, const struct DDK_OBJECT_MANIFEST* ddk_pr);
 
-/// @brief The highest API version of the DDK.
-DDK_EXTERN uint32_t kApiVersionHighest;
-
-/// @brief The lowest API version of the DDK.
-DDK_EXTERN uint32_t kApiVersionLowest;
-
-/// @brief API version in BCD.
-DDK_EXTERN uint32_t kApiVersion;
-
 #endif

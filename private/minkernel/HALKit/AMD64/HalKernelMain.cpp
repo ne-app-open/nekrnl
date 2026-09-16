@@ -25,7 +25,7 @@ STATIC Ne::Kernel::Void kei_init_drivers(Ne::Kernel::Void) {
 
   if (ldr.IsLoaded() && rtl_create_user_process(
                             ldr, UserProcess::ExecutableKind::kExecutableKind) != kCPSInvalidPID) {
-    (Void)(kout << "hal_real_init: Spawned the NeSystem Driver Host.\r");
+    (Void)(kout << "hal_real_init: Spawned the NeAnt Driver Host.\r");
   } else {
     (Void)(kout << "hal_real_init: warning: Driver host did not spawn.\r");
     ke_stop(RUNTIME_CHECK_BOOTSTRAP, "Bug-Check failed at Driver Host Init in HAL.");
@@ -36,7 +36,7 @@ STATIC Ne::Kernel::Void kei_init_drivers(Ne::Kernel::Void) {
   if (ldr_shms.IsLoaded() &&
       rtl_create_user_process(ldr_shms, UserProcess::ExecutableKind::kExecutableDylibKind) !=
           kCPSInvalidPID) {
-    (Void)(kout << "hal_real_init: Spawned the NeSystem Shims Host.\r");
+    (Void)(kout << "hal_real_init: Spawned the NeAnt Shims Host.\r");
   } else {
     (Void)(kout << "hal_real_init: warning: Shims host did not spawn.\r");
     ke_stop(RUNTIME_CHECK_BOOTSTRAP, "Bug-Check failed at Shims DLL Host Init in HAL.");
@@ -296,7 +296,7 @@ EXTERN_C Ne::Kernel::Void hal_real_init(Ne::Kernel::Void) {
     if (ldr.IsLoaded() &&
         rtl_create_user_process(ldr, UserProcess::ExecutableKind::kExecutableKind) !=
             kCPSInvalidPID) {
-      (Void)(kout << "hal_real_init: Spawned the NeSystem Launch Host.\r");
+      (Void)(kout << "hal_real_init: Spawned the NeAnt Launch Host.\r");
 
 #ifdef __HALKIT_INCLUDES_BNID__
       rtl_init_nic_rtl8139();

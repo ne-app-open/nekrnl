@@ -1,0 +1,6 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<XManifest>
+    <XInclude>${PROJECT_DIR}/common/manifest.xml</XInclude>
+    <XInclude>${PROJECT_DIR}/minloader/manifest.xml</XInclude>
+    <XInclude>${PROJECT_DIR}/minkernel/manifest.xml</XInclude>
+</XManifest>

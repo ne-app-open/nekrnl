@@ -8,7 +8,7 @@
 
 /*************************************************************
  *
- * File: \file IFS.cc
+ * File: \file IFS.cpp
  * Purpose: \brief Filesystem to mountpoint interface.
  * Date: \date 05/26/2025
  *

@@ -6,7 +6,7 @@
 #include <SystemKit/System.h>
 #include <modules/DHCP/DHCP.h>
 
-/// @brief NeSystem and Ant DHCP driver.
+/// @brief NeAnt and Ant DHCP driver.
 /// @note This driver is used to only connect using a DHCP host behind the workstation. To avoid
 /// nightmare scenarios that could have been avoided.
 

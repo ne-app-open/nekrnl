@@ -70,9 +70,10 @@ Boot::BootFileReader::BootFileReader(const CharacterTypeUTF16* path, EfiHandlePt
     mWriter.Write(L"BootZ: Fetch-Protocol: No-Such-Path: ").Write(mPath).Write(L"\r");
     this->mErrorCode = kNotSupported;
 
-    cg_render_string("BOOTZ: PLEASE RECOVER YOUR NEKERNEL INSTALL.", 40, 10, RGB(0xFF, 0xFF, 0xFF));
+    cg_render_string("BOOTZ: PLEASE RECOVER YOUR KRNL INSTALL.", 40, 10, RGB(0xFF, 0xFF, 0xFF));
 
     mRootFs->Close(mRootFs);
+    mRootFs = nullptr;
 
     return;
   }

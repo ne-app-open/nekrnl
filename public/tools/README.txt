@@ -5,7 +5,7 @@ This is compatible with:
 ========================
 
 - Ne.app ANT.
-- Ne.app NeSystem.
+- Ne.app NeAnt.
 
-And thus runnable via the NeSystem subsystem on ANT.
+And thus runnable via the NeAnt subsystem on ANT.
 

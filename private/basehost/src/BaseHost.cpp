@@ -27,7 +27,7 @@ IMPORT_C SInt32 launch_startup_fn(Void) {
   }
 
   /// The Shutdown Service (neshtdown.exe) is called when the OS goes into a unrecoverable state.
-  ::nesys_hash_64("__ne_call_shutdown_service");
+  ::nesys_syscall_arg_1(::nesys_hash_64("__ne_call_shutdown_service"));
   
   return kErrorExecutable;
 }

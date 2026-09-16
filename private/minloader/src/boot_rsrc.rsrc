@@ -9,7 +9,7 @@ BEGIN
     BLOCK "080904E4"
     BEGIN
       VALUE "CompanyName", "Ne.app"
-      VALUE "FileDescription", "Ne.app NeSystem OS Loader."
+      VALUE "FileDescription", "Ne.app NeAnt OS Loader."
       VALUE "FileVersion", BOOTLOADER_VERSION
       VALUE "InternalName", "minloader"
       VALUE "LegalCopyright", "Copyright (C) 2024-2026 Ne.app. Licensed under the Apache 2.0 license."

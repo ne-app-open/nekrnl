@@ -25,7 +25,7 @@ STATIC Ne::Kernel::Void kei_init_drivers(Ne::Kernel::Void) {
 
   if (ldr.IsLoaded() && rtl_create_user_process(
                             ldr, UserProcess::ExecutableKind::kExecutableKind) != kCPSInvalidPID) {
-    (Void)(kout << "hal_real_init: Spawned the NeSystem Driver Host.\r");
+    (Void)(kout << "hal_real_init: Spawned the NeAnt Driver Host.\r");
   } else {
     (Void)(kout << "hal_real_init: warning: Driver host did not spawn.\r");
     ke_stop(RUNTIME_CHECK_BOOTSTRAP, "Bug-Check failed at Kernel Driver Init in HAL.");

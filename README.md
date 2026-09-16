@@ -2,7 +2,7 @@
 
 # Ne.app Kernel
 
-The kernel module of the Ne.app NeSystem distribution.
+The kernel module of the Ne.app NeAnt distribution.
 
 ### Notice
 
@@ -55,10 +55,6 @@ Join Ne.app's [User Group](https://discord.gg/uD76Qweght) to and chat with users
 ## Licensing
 
 Ne.app NeKernel is licensed under the [Apache-2.0 License](LICENSE.txt).
-
-## Professional Services
-
-Ne.app NeKernel services are available under Ne.app, custom module development, et al for your use cases.
 
 ---
 

@@ -8,7 +8,7 @@
 -Iprivate/minloader
 -Iprivate/basehost
 -Iprivate/misc
--Iprivate/libDDK
+-Iprivate/libMsg
 -Ipublic/tools
 -Ipublic/tools/mk.app
 -Ipublic/tools/mk.fwrk

@@ -1,7 +1,7 @@
-##################################################
-# (c) Amlal El Mahrouss and NeKernel Authors, licensed under the Apache 2.0 license.
+##################################################################################
+# (c) Amlal El Mahrouss and Ne.app, licensed under the Apache 2.0 license.
 # This file is for libSystem.dll's syscall stubs.
-##################################################
+##################################################################################
 
 ASM=nasm
 FLAGS=-f win64

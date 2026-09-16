@@ -156,7 +156,7 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
   }
 
   if (!kAcpiDetectedMandatory) {
-    writer.Write("BootZ: Starting from NeSystem v1.6+. ACPI is required to boot on UEFI.\r");
+    writer.Write("BootZ: Starting from NeAnt v1.6+. ACPI is required to boot on UEFI.\r");
     Boot::Stop();
   }
 
