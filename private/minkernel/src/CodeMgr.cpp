@@ -17,6 +17,10 @@ namespace Ne::Kernel {
 /// @return The process started or not.
 BOOL rtl_create_kernel_task(KernelTask& task, const KID& kid) {
   if (!kid) return FALSE;
+  if (!task.Kid) return FALSE;
+  if (task.Name[0] == 0) return FALSE;
+  if (task.StackSize == 0) return FALSE;
+
   return KernelTaskHelper::Start(task, kid);
 }
 
@@ -30,6 +34,8 @@ BOOL rtl_create_kernel_task(KernelTask& task, const KID& kid) {
 
 ProcessID rtl_create_user_process(rtl_start_kind main, const Char* process_name) {
   if (!process_name || *process_name == 0) return kCPSInvalidPID;
+  if (!main) return kCPSInvalidPID;
+  
   return UserProcessScheduler::The().Spawn(process_name, reinterpret_cast<VoidPtr>(main), nullptr);
 }
 
