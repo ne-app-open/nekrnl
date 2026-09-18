@@ -144,8 +144,11 @@ EXTERN_C void idt_handle_ud(Ne::Kernel::UIntPtr rsp) {
 /// @return nothing.
 EXTERN_C Ne::Kernel::VoidPtr hal_system_call_enter(Ne::Kernel::UIntPtr rcx_hash,
                                                    Ne::Kernel::UIntPtr rdx_syscall_arg) {
-  if (!Ne::Kernel::kCurrentUser) return nullptr;
+  hal_idt_send_eoi(50);
 
+  if (!Ne::Kernel::kCurrentUser) return nullptr;
+  if (!rdx_syscall_arg || !rcx_hash) return nullptr;
+  
   for (SizeT i = 0UL; i < kMaxDispatchCallCount; ++i) {
     if (kSysCalls[i].fHooked && rcx_hash == kSysCalls[i].fHash) {
       if (!kSysCalls[i].fProc) break;
@@ -167,6 +170,7 @@ EXTERN_C Ne::Kernel::Void hal_kernel_call_enter(Ne::Kernel::UIntPtr rcx_hash, Ne
   if (!Ne::Kernel::kRootUser) return;
   if (Ne::Kernel::kCurrentUser != Ne::Kernel::kRootUser) return;
   if (!Ne::Kernel::kCurrentUser->IsSuperUser()) return;
+  if (!arg || !rcx_hash) return;
 
   for (SizeT i = 0UL; i < kMaxDispatchCallCount; ++i) {
     if (kKernCalls[i].fHooked && rcx_hash == kKernCalls[i].fHash) {

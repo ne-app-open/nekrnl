@@ -123,19 +123,20 @@ EXTERN_C void int_handle_ud(Ne::Kernel::UIntPtr rsp) {
 /// @brief Enter syscall from assembly (libSystem only)
 /// @param stack the stack pushed from assembly routine.
 /// @return nothing.
-EXTERN_C Ne::Kernel::VoidPtr hal_system_call_enter(Ne::Kernel::UIntPtr rcx_hash,
+EXTERN_C Ne::Kernel::Void hal_system_call_enter(Ne::Kernel::UIntPtr rcx_hash,
                                                    Ne::Kernel::UIntPtr rdx_syscall_arg) {
-  if (!Ne::Kernel::kCurrentUser) return nullptr;
+  if (!Ne::Kernel::kCurrentUser) return;
+  if (!rdx_syscall_arg || !rcx_hash) return;
 
-  for (SizeT i = 0UL; i < kMaxDispatchCallCount; ++i) {
+  for (SizeT i{}; i < kMaxDispatchCallCount; ++i) {
     if (kSysCalls[i].fHooked && rcx_hash == kSysCalls[i].fHash) {
       if (!kSysCalls[i].fProc) break;
 
-      return (kSysCalls[i].fProc)((Ne::Kernel::VoidPtr) rdx_syscall_arg);
+      (kSysCalls[i].fProc)((Ne::Kernel::VoidPtr) rdx_syscall_arg);
     }
   }
 
-  return nullptr;
+  return;
 }
 
 /// @brief Enter Ne::Kernel call from assembly (libDDK only).
@@ -146,8 +147,9 @@ EXTERN_C Ne::Kernel::Void hal_kernel_call_enter(Ne::Kernel::UIntPtr rcx_hash, Ne
   if (!Ne::Kernel::kRootUser) return;
   if (Ne::Kernel::kCurrentUser != Ne::Kernel::kRootUser) return;
   if (!Ne::Kernel::kCurrentUser->IsSuperUser()) return;
+  if (!arg || !rcx_hash) return;
 
-  for (SizeT i = 0UL; i < kMaxDispatchCallCount; ++i) {
+  for (SizeT i{}; i < kMaxDispatchCallCount; ++i) {
     if (kKernCalls[i].fHooked && rcx_hash == kKernCalls[i].fHash) {
       if (kKernCalls[i].fProc) {
         (kKernCalls[i].fProc)(cnt, (Ne::Kernel::VoidPtr) arg, sz);

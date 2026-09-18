@@ -227,6 +227,34 @@ IMPORT_C UInt64 PrintSize(IORef ref) {
   return *static_cast<UInt64*>(nesys_syscall_arg_2(SYSCALL_HASH("PrintSize"), ref));
 }
 
+IMPORT_C SInt32 ThrJoinThread(ThreadRef ref) {
+  if (auto ret = nesys_syscall_arg_2(nesys_hash_64("ThrJoinThread"), (VoidPtr) &ref); ret)
+    return *(SInt32*) ret;
+
+  return -kErrorInvalidData;
+}
+
+IMPORT_C ThreadRef ThrCurrentThread(Void) {
+  if (auto ret = nesys_syscall_arg_1(nesys_hash_64("ThrCurrentThread")); ret)
+    return (ThreadRef) ret;
+
+  return nullptr;
+}
+
+IMPORT_C SInt32 ThrYieldThread(ThreadRef ref) {
+  if (auto ret = nesys_syscall_arg_2(nesys_hash_64("ThrYieldThread"), (VoidPtr) &ref); ret)
+    return *(SInt32*) ret;
+
+  return -kErrorInvalidData;
+}
+
+IMPORT_C SInt32 ThrDetachThread(ThreadRef ref) {
+  if (auto ret = nesys_syscall_arg_2(nesys_hash_64("ThrDetachThread"), (VoidPtr) &ref); ret)
+    return *(SInt32*) ret;
+
+  return -kErrorInvalidData;
+}
+
 IMPORT_C SInt32 ThrExitCurrentThread(SInt32 ex) {
   if (auto ret = nesys_syscall_arg_2(SYSCALL_HASH("ThrExitCurrentThread"), (VoidPtr) &ex); ret)
     return *(SInt32*) ret;

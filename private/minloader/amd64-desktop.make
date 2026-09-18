@@ -76,10 +76,10 @@ KERNEL_IMG=vmoskrnl.exe
 SYSCHK=chk.efi
 BOOTNET=net.efi
 MEMTEST=memtest.efi
-SCIKIT=libSystem.dll
-DDK=libDDK.dll
-POSIXWRAPPER=libPOSIX.dll
-PTHREAD=libPThread.dll
+SCIKIT=System.dll
+DDK=DDK.dll
+POSIXWRAPPER=POSIX.dll
+PTHREAD=PThread.dll
 HAL=hal.x64.dll
 MINDETECT=mindetect.efi
 

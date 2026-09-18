@@ -10,7 +10,11 @@
     "-std=c++20",
     "-fno-rtti",
     "-fno-exceptions",
-    "-Wl,--subsystem=17"
+    "-Wl,--subsystem=17",
+    "-L../libSystem",
+    "-lSystem",
+    "-L../libThread",
+    "-lThread"
   ],
   "cpp_macros": [
     "__NEOSKRNL__",

@@ -80,6 +80,7 @@ EXTERN_C SInt32 hali_add_entry(HAL::hal_proc_type, const UInt64, const SInt64 ha
 EXTERN_C Void hali_remove_entry(const SInt64 hash);
 #endif
 
+EXTERN_C SSizeT hal_install_dispatch(const Char* name, rt_syscall_proc proc);
 EXTERN_C UInt64 hali_hash_fnv64(const Char* path);
 
 #ifdef __cplusplus
