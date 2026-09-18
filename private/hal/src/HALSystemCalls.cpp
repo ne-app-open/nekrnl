@@ -10,7 +10,7 @@
 using Ne::Kernel::HAL::kRegisteredSystemCalls;
 
 /// @brief Add a new entry to the HAL system calls table.
-EXTERN_C SInt32 hali_add_entry(HAL::hal_proc_type proc, const UInt64 level, const UInt64 hash) {
+EXTERN_C SInt32 hali_install_entry(HAL::hal_proc_type proc, const UInt64 level, const UInt64 hash) {
   if (!hash) return -1;
   if (!proc) return -1;
 

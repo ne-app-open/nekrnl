@@ -73,10 +73,10 @@ struct PACKED ALIGN(8) HAL_CALL_ENTRY HAL_FINAL {
 };
 
 #ifdef __cplusplus
-EXTERN_C SInt32 hali_add_entry(HAL::hal_proc_type, const UInt64, const UInt64 hash);
+EXTERN_C SInt32 hali_install_entry(HAL::hal_proc_type, const UInt64, const UInt64 hash);
 EXTERN_C Void hali_remove_entry(const UInt64 hash);
 #else
-EXTERN_C SInt32 hali_add_entry(HAL::hal_proc_type, const UInt64, const SInt64 hash);
+EXTERN_C SInt32 hali_install_entry(HAL::hal_proc_type, const UInt64, const SInt64 hash);
 EXTERN_C Void hali_remove_entry(const SInt64 hash);
 #endif
 
