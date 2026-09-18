@@ -49,7 +49,9 @@ EXTERN_C Ne::Kernel::Void hal_call_enter(Ne::Kernel::UIntPtr rcx_hash, Ne::Kerne
   for (SizeT i = 0UL; i < kMaxDispatchCallCount; ++i) {
     if (kDispatchCalls[i].fHooked && rcx_hash == kDispatchCalls[i].fHash) {
       if (kDispatchCalls[i].fProc) {
+        kLocked.clear(std::memory_order_release);
         (kDispatchCalls[i].fProc)((Ne::Kernel::VoidPtr) arg);
+        return;
       }
     }
   }

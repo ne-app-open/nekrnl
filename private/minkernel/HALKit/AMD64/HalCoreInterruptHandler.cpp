@@ -148,7 +148,7 @@ EXTERN_C Ne::Kernel::VoidPtr hal_system_call_enter(Ne::Kernel::UIntPtr rcx_hash,
 
   if (!Ne::Kernel::kCurrentUser) return nullptr;
   if (!rdx_syscall_arg || !rcx_hash) return nullptr;
-  
+
   for (SizeT i = 0UL; i < kMaxDispatchCallCount; ++i) {
     if (kSysCalls[i].fHooked && rcx_hash == kSysCalls[i].fHash) {
       if (!kSysCalls[i].fProc) break;
@@ -175,7 +175,7 @@ EXTERN_C Ne::Kernel::Void hal_kernel_call_enter(Ne::Kernel::UIntPtr rcx_hash, Ne
   for (SizeT i = 0UL; i < kMaxDispatchCallCount; ++i) {
     if (kKernCalls[i].fHooked && rcx_hash == kKernCalls[i].fHash) {
       if (kKernCalls[i].fProc) {
-        (kKernCalls[i].fProc)(cnt, (Ne::Kernel::VoidPtr) arg, sz);
+        return (kKernCalls[i].fProc)(cnt, (Ne::Kernel::VoidPtr) arg, sz);
       }
     }
   }
