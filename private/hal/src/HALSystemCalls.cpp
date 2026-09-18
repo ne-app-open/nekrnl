@@ -37,7 +37,7 @@ EXTERN_C SInt32 hali_add_entry(HAL::hal_proc_type proc, const UInt64 level, cons
 
   kLocked.clear(std::memory_order_release);
 
-  return -1;
+  return (SInt32)i;
 }
 
 /// @brief Remove an entry from the HAL system calls table.
