@@ -1,9 +1,9 @@
 ###############################################################
-# (c) Amlal El Mahrouss, licensed under the Apache 2.0 license.
-# This is the microKernel makefile.
+# (c) Amlal El Mahrouss and Ne.app, licensed under the Apache 2.0 license.
+# This is the kernel makefile.
 ###############################################################
 
-CC			= clang++
+CC			= mingw-woarm64-g++
 LD			= lld-link
 CCFLAGS		= -fshort-wchar -c -ffreestanding -MMD -mno-red-zone -D__NE_ARM64__ -fno-rtti -fno-exceptions -I./ \
 			 -target aarch64-unknown-windows \

@@ -477,6 +477,54 @@ ErrorOr<VoidPtr> PEFLoader::GetBlob() {
   return ErrorOr<VoidPtr>{this->fCachedBlob};
 }
 
+ProcessID rtl_create_kernel_process(PEFLoader&                         exec,
+                                  const UserProcess::ExecutableKind& process_kind) {
+  if (!exec.IsLoaded()) return kCPSInvalidPID;
+
+  auto errOrStart = exec.FindStart();
+
+  if (errOrStart.Error() != kErrorSuccess) return kCPSInvalidPID;
+
+  auto symname = exec.FindSymbol(kPefNameSymbol, kPefCode);
+
+  if (!symname.Leak().Leak()) symname = ErrorOr<VoidPtr>{(VoidPtr) rt_alloc_string(kPefImageStart)};
+
+  if (!symname.Leak().Leak()) return kCPSInvalidPID;
+
+  ProcessID id = UserProcessScheduler::The().Spawn(
+      reinterpret_cast<const Char*>(symname.Leak().Leak()), errOrStart.Leak().Leak(),
+      exec.GetBlob().Leak().Leak(), exec.BlobSz());
+
+  if (symname.Leak().Leak()) mm_free_ptr(symname.Leak().Leak());
+
+  if (id != kCPSInvalidPID) {
+    auto stacksym = exec.FindSymbol(kPefStackSizeSymbol, kPefData);
+
+    if (!stacksym.Leak().Leak()) {
+      stacksym = ErrorOr<VoidPtr>{(VoidPtr) new UIntPtr(kCPSMaxStackSz)};
+    }
+
+    if (!stacksym.Leak().Leak()) {
+      UserProcessScheduler::The().Remove(id);
+      mm_free_ptr(stacksym.Leak().Leak());
+      return kCPSInvalidPID;
+    }
+
+    if ((*(volatile UIntPtr*) stacksym.Leak().Leak()) > kCPSMaxStackSz) {
+      *(volatile UIntPtr*) stacksym.Leak().Leak() = kCPSMaxStackSz;
+    }
+
+    UserProcessScheduler::The().TheCurrentTeam().AsArray()[id].Kind = process_kind;
+    UserProcessScheduler::The().TheCurrentTeam().AsArray()[id].SubSystem = ProcessSubsystem::kProcessSubsystemKernel;
+    UserProcessScheduler::The().TheCurrentTeam().AsArray()[id].StackSize =
+        *(UIntPtr*) stacksym.Leak().Leak();
+
+    mm_free_ptr(stacksym.Leak().Leak());
+  }
+
+  return id;
+}
+
 ProcessID rtl_create_user_process(PEFLoader&                         exec,
                                   const UserProcess::ExecutableKind& process_kind) {
   if (!exec.IsLoaded()) return kCPSInvalidPID;
