@@ -1,5 +1,5 @@
 {
-  "compiler_path": "clang++",
+  "compiler_path": "mingw-woarm64-g++",
   "compiler_std": "c++20",
   "headers_path": ["../", "../../", "../../../minkernel", "../../../", "./"],
   "sources_path": [

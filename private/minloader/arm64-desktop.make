@@ -1,9 +1,9 @@
 ##################################################
-# (c) Amlal El Mahrouss, licensed under the Apache 2.0 license.
-# This is the bootloader makefile.
+# (c) Amlal El Mahrouss and Ne.app, licensed under the Apache 2.0 license.
+# This is the loader makefile.
 ##################################################
 
-CC_GNU			= clang++
+CC_GNU			= mingw-woarm64-g++
 LD_GNU			= lld-link
 
 ADD_FILE=touch

@@ -6,8 +6,11 @@
 #ifndef DMAKIT_DMAPOOL_H
 #define DMAKIT_DMAPOOL_H
 
-#include <KernelKit/DebugOutput.h>
+#ifndef __nekernel_halkit_include_processor
+#define __nekernel_halkit_include_processor <HALKit/AMD64/Processor.h>
+#endif
 
+#include <KernelKit/DebugOutput.h>
 #include __nekernel_halkit_include_processor
 
 #define kNeDMAPoolStart (__nekernel_dma_pool_start)
