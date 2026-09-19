@@ -1,5 +1,5 @@
 {
-  "compiler_path": "mingw-woarm64-g++",
+  "compiler_path": "aarch64-w64-mingw32-g++",
   "compiler_std": "c++20",
   "headers_path": [
     "../",

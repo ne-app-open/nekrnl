@@ -3,7 +3,7 @@
 # This is the loader makefile.
 ##################################################
 
-CC_GNU			= mingw-woarm64-g++
+CC_GNU			= aarch64-w64-mingw32-g++
 LD_GNU			= lld-link
 
 ADD_FILE=touch
