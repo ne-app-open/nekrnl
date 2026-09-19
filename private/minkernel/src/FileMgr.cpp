@@ -40,7 +40,14 @@ _Output IFilesystemMgr* IFilesystemMgr::Unmount() {
 /// @return if it succeeded true, otherwise false.
 _Output Bool IFilesystemMgr::Mount(_Input IFilesystemMgr* mount_ptr) {
   if (mount_ptr != nullptr) {
+    std::atomic_flag flg = ATOMIC_FLAG_INIT;
+    
+    while (!flg.test_and_set(std::memory_order_acquire));
+
     kMountedFilesystem = mount_ptr;
+
+    flg.clear(std::memory_order_release);
+
     return Yes;
   }
 

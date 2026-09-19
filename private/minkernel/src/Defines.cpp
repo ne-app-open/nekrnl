@@ -4,3 +4,5 @@
 // Official repository: https://github.com/ne-app-eu/krnl
 
 #include <NeKit/Config.h>
+
+namespace Ne::Kernel {}  // namespace Ne::Kernel

@@ -1,0 +1,4 @@
+CONTENTS
+
+kRegisteredSystemCalls is the internal dispatch table for HAL.dll
+Whereas kDispatchCalls serves as the public table.

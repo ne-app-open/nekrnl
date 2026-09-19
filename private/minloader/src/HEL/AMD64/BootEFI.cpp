@@ -103,7 +103,7 @@ STATIC Void boot_scan_memory(HEL::BootInfoHeader* handover_hdr, UIntPtr* out_map
     Boot::Stop();
   }
 
-  handover_hdr->f_BitMapStart = (VoidPtr)((UIntPtr)first_free_page + mib_cast(8));
+  handover_hdr->f_BitMapStart = (VoidPtr) ((UIntPtr) first_free_page + mib_cast(8));
   handover_hdr->f_BitMapSize  = free_pages * 4096;
 
   if (out_map_key) *out_map_key = map_key;
@@ -137,7 +137,8 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
     Boot::Stop();
   }
 
-  writer.Write("BootZ: The Ne.app NeKernel Loader. Copyright 2024-2026, Amlal El Mahrouss, Ne.app et al.\r");
+  writer.Write(
+      "BootZ: The Ne.app NeKernel Loader. Copyright 2024-2026, Amlal El Mahrouss, Ne.app et al.\r");
 
   STATIC Bool kAcpiDetectedMandatory = FALSE;
 
@@ -190,9 +191,12 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
   UInt32 cnt_disabled = 0;
 
   if (mp) {
-    mp->GetNumberOfProcessors(mp, &cnt_disabled, &cnt_enabled);
-    kHandoverHeader->f_NumberOfProcessors                   = cnt_enabled;
-    handover_hdr->f_HardwareTables.f_MultiProcessingEnabled = YES;
+    auto ret = mp->GetNumberOfProcessors(mp, &cnt_disabled, &cnt_enabled);
+    
+    if (ret == kEfiOk) {
+      handover_hdr->f_NumberOfProcessors                      = cnt_enabled;
+      handover_hdr->f_HardwareTables.f_MultiProcessingEnabled = YES;
+    }
   } else {
     handover_hdr->f_NumberOfProcessors                      = 1;
     handover_hdr->f_HardwareTables.f_MultiProcessingEnabled = NO;
@@ -324,7 +328,7 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
 
   if (reader_hal.Blob()) {
     handover_hdr->f_HALImage = reader_hal.Blob();
-    handover_hdr->f_HALSz = reader_hal.Size();
+    handover_hdr->f_HALSz    = reader_hal.Size();
   }
 
   Boot::BootFileReader reader_osdetect(L"mindetect.efi", image_handle);
@@ -336,12 +340,13 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
     osdetect_thread = new Boot::BootThread(reader_osdetect.Blob());
     osdetect_thread->SetName("OS Detect");
 
-    auto ret = osdetect_thread->Start(handover_hdr, NO);
+    auto ret = osdetect_thread->Start(kHandoverHeader, NO);
 
     if (ret == kEfiFail) {
       UIntPtr sz_prob_cnt = sizeof(UInt64);
       UInt64  prob_cnt    = 0;
 
+      // This variable counts how many times the OS detect had problems.
       ST->RuntimeServices->GetVariable(L"/props/problems_detected_cnt", kEfiGlobalNamespaceVarGUID,
                                        nullptr, &sz_prob_cnt, &prob_cnt);
 
@@ -349,6 +354,10 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
 
       ST->RuntimeServices->SetVariable(L"/props/problems_detected_cnt", kEfiGlobalNamespaceVarGUID,
                                        0, &sz_prob_cnt, &prob_cnt);
+
+      writer.Write("BootZ: OS detection module failed. Check logs.\n");
+
+      Boot::Stop();
     }
   }
 
@@ -364,7 +373,7 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
 
     auto kernel_thread = Boot::BootThread(reader_kernel.Blob());
 
-    kernel_thread.SetName("Ne.app NeKernel");
+    kernel_thread.SetName("Ne.app Kernel");
 
     handover_hdr->f_KernelImage = reader_kernel.Blob();
     handover_hdr->f_KernelSz    = reader_kernel.Size();

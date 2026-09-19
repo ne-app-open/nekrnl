@@ -70,6 +70,7 @@ Boolean Pmm::ToggleShare(Ref<PTEWrapper> PageRef, Boolean Enable) {
   if (!PageRef) return false;
 
   PageRef.Leak().fShareable = Enable;
+  PageRef.Leak().fExecDisable  = (Enable) ? YES : NO;
 
   return true;
 }

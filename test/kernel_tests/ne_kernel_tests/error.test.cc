@@ -23,6 +23,8 @@ KT_DECL_TEST(ErrGetLastErrorAfterSuccess, []() -> bool {
 
 KT_DECL_TEST(ErrGetLastErrorAfterFailure, []() -> bool {
   auto heap = MmCreateHeap(0, 0);
+  MUST_PASS(heap);
+  if (!heap) return NO;
 
   SInt32 error = ErrGetLastError();
 
@@ -41,6 +43,9 @@ KT_DECL_TEST(ErrGetLastErrorAfterInvalidFile, []() -> bool {
 
 KT_DECL_TEST(ErrGetLastErrorAfterNullOp, []() -> bool {
   auto ptr = MmCopyMemory(nullptr, nullptr, 10);
+
+  MUST_PASS(ptr);
+  if (!ptr) return NO;
 
   SInt32 error = ErrGetLastError();
 

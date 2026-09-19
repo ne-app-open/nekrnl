@@ -1,4 +1,4 @@
-<!-- Read Me of NeKernel -->
+<!-- Read Me of Ne.app Kernel -->
 
 # Ne.app Kernel
 

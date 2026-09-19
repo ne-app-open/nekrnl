@@ -13,6 +13,7 @@ void* operator new(size_t sz) {
 }
 
 void operator delete(void* ptr) noexcept {
+  if (!ptr) ke_call_dispatch("krti_bug_check", 0, nullptr, 0);
   ::kfree(ptr);
 }
 
@@ -23,5 +24,6 @@ void* operator new[](size_t sz) {
 }
 
 void operator delete[](void* ptr) noexcept {
+  if (!ptr) ke_call_dispatch("krti_bug_check", 0, nullptr, 0);
   ::kfree(ptr);
 }
