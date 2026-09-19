@@ -3,10 +3,9 @@
 # This is the kernel makefile.
 ###############################################################
 
-CC			= mingw-woarm64-g++
+CC			= aarch64-w64-mingw32-g++
 LD			= lld-link
-CCFLAGS		= -fshort-wchar -c -ffreestanding -MMD -mno-red-zone -D__NE_ARM64__ -fno-rtti -fno-exceptions -I./ \
-			 -target aarch64-unknown-windows \
+CCFLAGS		= -fshort-wchar -I../../EXTERNAL_HEADERS -c -ffreestanding -MMD -mno-red-zone -D__NE_ARM64__ -fno-rtti -fno-exceptions -I./ \
 				-std=c++20 -D__nekernel_max_cores=8 -D__nekernel_dma_best_align=8 -O3 -D__NEKERNEL__ -D__NEOSKRNL__  -D__NE_VEPM__ -D__NE_MINIMAL_OS__ -D__NE_NO_BUILTIN__ -D__HAVE_NE_API__ -D__NE__ -I../
 
 ASM 		= clang++
