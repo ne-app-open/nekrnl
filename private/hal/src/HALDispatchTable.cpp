@@ -11,7 +11,7 @@
 
 STATIC Ne::Kernel::Array<HAL_DISPATCH_ENTRY, kMaxDispatchCallCount> kDispatchCalls;
 
-EXTERN_C Ne::Kernel::SSizeT hal_install_dispatch(const Ne::Kernel::Char* name,
+EXTERN_C Ne::Kernel::SSizeT hali_install_dispatch(const Ne::Kernel::Char* name,
                                                  rt_syscall_proc         proc) {
   if (!name || *name == 0) return -1;
 

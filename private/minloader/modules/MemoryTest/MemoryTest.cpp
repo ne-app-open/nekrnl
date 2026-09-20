@@ -7,20 +7,24 @@
 #include <BootKit/BootThread.h>
 #include <FirmwareKit/EFI/API.h>
 
+#ifndef kMemoryTestVal
+#define kMemoryTestVal (42)
+#endif
+
 EXTERN_C Int32 MemoryTestModuleMain(Ne::Kernel::HEL::BootInfoHeader* handover) {
   ::fw_init_efi(static_cast<EfiSystemTable*>(handover->f_FirmwareCustomTables[Ne::Kernel::HEL::kHandoverTableST]));
 
   Boot::BootTextWriter writer;
   writer.Write("MemoryTest: Testing Memory...\r");
 
-  auto kTestValue = 0;
+  UIntPtr kTestValue = 0;
 
   volatile UInt64* mem = (volatile UInt64*) kTestValue;
 
   auto prev = *mem;
-  *mem      = 42;
+  *mem      = kMemoryTestVal;
   
-  if (*mem != 42) {
+  if (*mem != kMemoryTestVal) {
     return kEfiFail;
   }
 

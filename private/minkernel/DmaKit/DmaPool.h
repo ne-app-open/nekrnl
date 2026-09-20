@@ -64,7 +64,7 @@ inline VoidPtr rtl_dma_alloc(SizeT size, SizeT align) {
 inline Void rtl_dma_free(SizeT size) {
   if (!size) return;
 
-  auto ptr = (kDmaPoolPtr - size);
+  volatile auto ptr = (kDmaPoolPtr - size);
 
   if (!ptr || ptr < (UInt8*) kNeDMAPoolStart) {
     err_global_get() = kErrorDmaExhausted;

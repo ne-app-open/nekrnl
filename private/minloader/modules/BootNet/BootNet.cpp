@@ -61,7 +61,7 @@ EXTERN_C Int32 BootNetModuleMain(Ne::Kernel::HEL::BootInfoHeader* handover) {
     Boot::BootThread thread(inet_out->Data);
 
     if (thread.IsValid()) {
-      writer.Write("Net: Running image...\r");
+      writer.Write("Net: Running BootNet image...\r");
       return thread.Start(handover, YES);
     }
 

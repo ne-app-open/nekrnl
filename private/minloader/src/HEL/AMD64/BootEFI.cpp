@@ -192,7 +192,7 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
 
   if (mp) {
     auto ret = mp->GetNumberOfProcessors(mp, &cnt_disabled, &cnt_enabled);
-    
+
     if (ret == kEfiOk) {
       handover_hdr->f_NumberOfProcessors                      = cnt_enabled;
       handover_hdr->f_HardwareTables.f_MultiProcessingEnabled = YES;
@@ -253,13 +253,26 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
   handover_hdr->f_FirmwareVendorLen = Boot::BStrLen(sys_table->FirmwareVendor);
   // Assign to global 'kHandoverHeader'.
 
-  Boot::BootFileReader reader_memtest(L"memtest.efi", image_handle);
-  reader_memtest.ReadAll(0);
+  EfiInputKey key{};
 
-  if (reader_memtest.Blob()) {
-    auto memtest_thread = Boot::BootThread(reader_memtest.Blob());
-    memtest_thread.SetName("MemoryTest");
-    memtest_thread.Start(handover_hdr, NO);
+  ST->ConOut->OutputString(ST->ConOut, L"BootZ: Y for Memory testing or N to skip...\r\n");
+  ST->ConOut->OutputString(ST->ConOut, L"Choose? (Y/N)\r\n");
+  ST->ConIn->Reset(ST->ConIn, TRUE);
+
+  while (key.UnicodeChar != 'N') {
+    ST->ConIn->ReadKeyStroke(ST->ConIn, &key);
+    if (key.UnicodeChar == 'Y') {
+      Boot::BootFileReader reader_memtest(L"memtest.efi", image_handle);
+      reader_memtest.ReadAll(0);
+
+      if (reader_memtest.Blob()) {
+        auto memtest_thread = Boot::BootThread(reader_memtest.Blob());
+        memtest_thread.SetName("MemoryTest");
+        memtest_thread.Start(handover_hdr, NO);
+      }
+
+      break;
+    }
   }
 
   WideChar kernel_path[256U] = L"vmoskrnl.exe";
@@ -357,7 +370,32 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
 
       writer.Write("BootZ: OS detection module failed. Check logs.\n");
 
-      Boot::Stop();
+      EfiInputKey key{};
+
+      ST->ConOut->OutputString(ST->ConOut, L"BootZ: Y for System Diagnostics or N to stop...\r\n");
+      ST->ConOut->OutputString(ST->ConOut, L"Choose? (Y/N)\r\n");
+      ST->ConIn->Reset(ST->ConIn, TRUE);
+
+      while (key.UnicodeChar != 'Y') {
+        ST->ConIn->ReadKeyStroke(ST->ConIn, &key);
+        if (key.UnicodeChar == 'N') Boot::Stop();
+      }
+
+      Boot::BootFileReader reader_osdiag(L"mindiag.exe", image_handle);
+      reader_osdiag.ReadAll(0);
+
+      Boot::BootThread* osdiag_thread = nullptr;
+
+      if (reader_osdiag.Blob()) {
+        osdiag_thread = new Boot::BootThread(reader_osdiag.Blob());
+        osdiag_thread->SetName("OS Diag");
+
+        ret = osdetect_thread->Start(kHandoverHeader, NO);
+
+        if (ret != kEfiOk) {
+          Boot::Stop();
+        }
+      }
     }
   }
 
