@@ -17,11 +17,15 @@ using namespace Ne::Kernel;
 /* we always use stdcall in EFI, the pascal way of calling functions. */
 
 #ifndef EPI_API
+#ifndef __aarch64__
 #define EFI_API __attribute__((ms_abi))
+#else
+#define EFI_API 
+#endif
 #endif  // ifndef EPI_API
 
 #ifndef EPIAPI
-#define EFIAPI __attribute__((ms_abi))
+#define EFIAPI EFI_API
 #endif  // ifndef EPIAPI
 
 #define IN
