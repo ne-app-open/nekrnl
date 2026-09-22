@@ -7,4 +7,4 @@
 #include <KernelKit/ZXD.h>
 
 /// @note This is ZXD specific, gives the path for the ZXD loader.
-static constexpr auto kZXDLdrName = ".zldr";
+static ATTRIBUTE(unused) constexpr auto kZXDLdrName = ".zldr";

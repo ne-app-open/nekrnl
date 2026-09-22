@@ -3,10 +3,10 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-foss/kernel
 
+#include <HALKit/Generic/PhysicalMemory.h>
 #include <KernelKit/FileMgr.h>
 #include <KernelKit/HeapMgr.h>
 #include <KernelKit/KPC.h>
-#include <HALKit/Generic/PhysicalMemory.h>
 #include <KernelKit/ThreadLocalStorage.h>
 #include <KernelKit/User.h>
 #include <NeKit/KString.h>
@@ -34,6 +34,9 @@ namespace Detail {
     const UInt64 kFnvPrime       = 0x100000001b3ULL;
 
     UInt64 hash = kFnvOffsetBasis;
+
+    MUST_PASS(hash != 0);
+    MUST_PASS(*password != 0);
 
     while (*password) {
       hash ^= (Char) (*password++);
@@ -66,8 +69,9 @@ User::User(const Int32& sel, const Char* user_name) : mUserRing((UserRingKind) s
 ////////////////////////////////////////////////////////////
 /// @brief User ring constructor.
 ////////////////////////////////////////////////////////////
-User::User(const UserRingKind& ring_kind, const Char* user_name)
-    : mUserRing(ring_kind) {
+User::User(const UserRingKind& ring_kind, const Char* user_name) : mUserRing(ring_kind) {
+  MUST_PASS(ring_kind != UserRingKind::kRingInvalid);
+  MUST_PASS(*user_name != 0);
   Detail::user_set_name(this->mUserName, user_name);
 }
 
@@ -75,7 +79,6 @@ User::User(const UserRingKind& ring_kind, const Char* user_name)
 /// @brief User destructor class.
 ////////////////////////////////////////////////////////////
 User::~User() = default;
-
 
 ////////////////////////////////////////////////////////////
 /// @brief Is the user an adult?

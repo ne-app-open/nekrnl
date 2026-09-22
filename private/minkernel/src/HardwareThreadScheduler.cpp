@@ -97,8 +97,21 @@ Bool HardwareThread::Switch(HAL::StackFramePtr frame) {
     return NO;
   }
 
+  if (frame->IP == 0 || frame->SP == 0) {
+    return NO;
+  }
+
+  /// Use atomics before switching threads.
+  static std::atomic_flag flg = ATOMIC_FLAG_INIT;
+
+  while (!flg.test_and_set(std::memory_order_acquire));
+
   this->fStack = frame;
-  return mp_register_task(this->fStack, this->fID);
+  auto ret = mp_register_task(this->fStack, this->fID);
+
+  flg.clear(std::memory_order_release);
+
+  return ret;
 }
 
 /***********************************************************************************/

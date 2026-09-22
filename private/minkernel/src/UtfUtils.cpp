@@ -11,6 +11,7 @@ namespace Ne::Kernel {
 
 Size urt_string_len(const Utf8Char* str) {
   if (!str) return 0;
+  if (!*str) return 0;
 
   SizeT len{0};
 

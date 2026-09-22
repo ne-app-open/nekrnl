@@ -11,8 +11,10 @@
 ///! @author Amlal El Mahrouss (amlal@nekernel.org)
 
 namespace Ne::Kernel {
+
 /// @brief Unimplemented as it is an interface.
 BOOL ITimer::Wait() {
   return NO;
 }
+
 }  // namespace Ne::Kernel
