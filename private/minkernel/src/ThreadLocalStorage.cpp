@@ -43,7 +43,7 @@ EXTERN_C Bool tls_check_tib(Ne::Kernel::VoidPtr tib_ptr) {
   MUST_PASS(tib_ptr);
   if (!tib_ptr) {
     kout << "TLS: Failed because of an invalid TIB...\r";
-    return No;
+    return NO;
   }
 
   THREAD_INFORMATION_BLOCK* tib = static_cast<THREAD_INFORMATION_BLOCK*>(tib_ptr);

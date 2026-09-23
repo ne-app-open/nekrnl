@@ -6,14 +6,14 @@
 #include <MsgKit/Server.h>
 #include <SystemKit/Err.h>
 
-static libmsg_func_type* kFuncs{nullptr};
+static libmsg_func_type* kFuncPtr{nullptr};
 static SizeT             kFuncCnt{0};
 static SemaphoreRef      kSemaphore{nullptr};
 
 IMPORT_C UInt32 libmsg_close_library(Void) {
   if (kSemaphore) return kErrorInvalidData;
 
-  if (kFuncs) kFuncs   = nullptr;
+  if (kFuncPtr) kFuncPtr   = nullptr;
   if (kFuncCnt) kFuncCnt = 0;
 
   return kErrorSuccess;
@@ -29,7 +29,7 @@ IMPORT_C UInt32 libmsg_eval_expr(struct LIBMSG_EXPR* head, VoidPtr arg, SizeT ar
 
   if (!kSemaphore) return kErrorInvalidData;
 
-  kFuncs[head->l_index](head, arg, arg_size);
+  kFuncPtr[head->l_index](head, arg, arg_size);
 
   ::SemClose(kSemaphore);
   kSemaphore = nullptr;
@@ -39,11 +39,11 @@ IMPORT_C UInt32 libmsg_eval_expr(struct LIBMSG_EXPR* head, VoidPtr arg, SizeT ar
 
 IMPORT_C Void libmsg_init_library(libmsg_func_type* funcs, SizeT cnt) {
   if (!funcs || !cnt) return;
-  if (!kFuncs || !kFuncCnt) return;
+  if (!kFuncPtr || !kFuncCnt) return;
 
-  kFuncs   = funcs;
+  kFuncPtr   = funcs;
   kFuncCnt = cnt;
 
-  MUST_PASS(kFuncs != nullptr);
+  MUST_PASS(kFuncPtr != nullptr);
   MUST_PASS(kFuncCnt > 0);
 }

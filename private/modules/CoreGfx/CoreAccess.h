@@ -48,6 +48,8 @@ struct CGVec final {
 };
 
 using CGVec3U64 = CGVec<3, UInt64>;
+using CGVec2U64 = CGVec<2, UInt64>;
+using CGVec4U64 = CGVec<4, UInt64>;
 }  // namespace FB
 
 #endif  // !CORE_GFX_ACCESSIBILITY_H_

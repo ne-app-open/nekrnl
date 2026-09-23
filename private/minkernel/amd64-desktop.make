@@ -51,7 +51,8 @@ WINDRES=x86_64-w64-mingw32-windres
 .PHONY: nekernel-amd64-epm
 nekernel-amd64-epm: clean
 	$(WINDRES) kernel_rsrc.rsrc -O coff -o kernel_rsrc.obj
-	$(CXX) $(CCFLAGS) $(DISK_DRV) $(DEBUG_MACRO) $(wildcard src/*.cpp) $(wildcard src/Gfx/*.cpp) $(wildcard HALKit/AMD64/Network/*.cpp) $(wildcard HALKit/AMD64/PCI/*.cpp) $(wildcard src/Network/*.cpp) $(wildcard src/Storage/*.cpp) $(wildcard src/FS/*.cpp) $(wildcard HALKit/AMD64/Storage/*.cpp) $(wildcard HALKit/AMD64/*.cpp) $(wildcard HALKit/Generic/*.cpp) $(wildcard src/Swap/*.cpp) $(wildcard HALKit/AMD64/*.s)
+	$(CXX) $(CCFLAGS) $(DISK_DRV) $(DEBUG_MACRO) $(wildcard src/*.cpp) \
+	$(wildcard ../common/*.cpp) $(wildcard ../common/SystemCallsImpl/*.cpp) $(wildcard ../common/KernelCallsImpl/*.cpp) $(wildcard src/Gfx/*.cpp) $(wildcard HALKit/AMD64/Network/*.cpp) $(wildcard HALKit/AMD64/PCI/*.cpp) $(wildcard src/Network/*.cpp) $(wildcard src/Storage/*.cpp) $(wildcard src/FS/*.cpp) $(wildcard HALKit/AMD64/Storage/*.cpp) $(wildcard HALKit/AMD64/*.cpp) $(wildcard HALKit/Generic/*.cpp) $(wildcard src/Swap/*.cpp) $(wildcard HALKit/AMD64/*.s)
 	$(ASM) $(ASMFLAGS) HALKit/AMD64/HalInterruptAPI.asm
 	$(ASM) $(ASMFLAGS) HALKit/AMD64/HalCommonAPI.asm
 	$(ASM) $(ASMFLAGS) HALKit/AMD64/HalHandoverStub.asm

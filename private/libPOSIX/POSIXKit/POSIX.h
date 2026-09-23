@@ -12,8 +12,8 @@
 /// @brief POSIX definitions header for the NeKernel.
 
 /// @brief Please use these macros to specify whether your function is thread safe or not.
-#define PTHREAD_UNSAFE __THREAD_UNSAFE
-#define PTHREAD_SAFE __THREAD_SAFE
+#define PTHREAD_UNSAFE
+#define PTHREAD_SAFE
 
 #ifndef _POSIX_SOURCE
 #define _POSIX_SOURCE __POSIX_SOURCE__
@@ -23,7 +23,15 @@
 #define _XOPEN_SOURCE __XOPEN_SOURCE__
 #endif
 
-PTHREAD_UNSAFE IMPORT_C SInt64 write(SizeT count, SInt32 fd, Void* data, SizeT sz);
-PTHREAD_UNSAFE IMPORT_C SInt64 read(SizeT count, SInt32 fd, Void* data, SizeT sz);
+PTHREAD_UNSAFE IMPORT_C SInt64 _write(SizeT count, SInt32 fd, Void* data, SizeT sz);
+PTHREAD_UNSAFE IMPORT_C SInt64 _read(SizeT count, SInt32 fd, Void* data, SizeT sz);
+
+#ifndef read
+#define read _read
+#endif
+
+#ifndef write
+#define write _write
+#endif
 
 #endif  // LIBPOSIX_POSIXKIT_POSIX_H

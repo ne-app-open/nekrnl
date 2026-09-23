@@ -544,7 +544,7 @@ namespace Detail {
   STATIC ATTRIBUTE(unused) _Output BOOL
       hefsi_update_in_status(HEFS_BOOT_NODE* boot, DriveTrait* mnt, const Utf8Char* dir_name,
                              HEFS_INDEX_NODE* node, BOOL delete_or_create) {
-    if (!boot || !mnt) return NO;
+    if (!boot || !mnt || !node) return NO;
 
     auto start = boot->fStartIND;
 
@@ -671,8 +671,9 @@ namespace Detail {
         if (start > boot->fEndIND || start == 0) break;
       }
 
-      mm_free_ptr(dir);
+      if (dir) mm_free_ptr(dir);
       dir = nullptr;
+      
       err_global_get() = kErrorFileNotFound;
       return NO;
     }
@@ -686,11 +687,13 @@ namespace Detail {
   /// @param mnt The mnt to read/write from.
   /// @return Status, see err_global_get().
   STATIC ATTRIBUTE(unused) _Output BOOL hefsi_balance_ind(HEFS_BOOT_NODE* boot, DriveTrait* mnt) {
-    if (mnt) {
+    if (mnt && boot) {
       HEFS_INDEX_NODE_DIRECTORY* dir =
           (HEFS_INDEX_NODE_DIRECTORY*) RTL_ALLOCA(sizeof(HEFS_INDEX_NODE_DIRECTORY));
 
       auto start = boot->fStartIND;
+
+      if (start == 0) return NO;
 
       while (YES) {
         if (start == 0UL || start > boot->fEndIND) break;

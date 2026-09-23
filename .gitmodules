@@ -1,3 +1,6 @@
 [submodule "etc/css"]
 	path = etc/css
 	url = https://github.com/jothepro/doxygen-awesome-css.git
+[submodule "EXTERNAL_HEADERS/RSL"]
+	path = EXTERNAL_HEADERS/RSL
+	url = git@github.com:ne-app/RSL.git

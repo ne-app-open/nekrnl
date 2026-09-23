@@ -33,8 +33,8 @@
 #define MUST_PASS(EXPR) __MUST_PASS((EXPR), __FILE__, __LINE__)
 #define assert(EXPR) MUST_PASS(EXPR)
 #else
-#define MUST_PASS(EXPR) (Ne::Kernel::Void)(EXPR)
-#define assert(EXPR) (Ne::Kernel::Void)(EXPR)
+#define MUST_PASS(EXPR) __MUST_PASS(EXPR, __FILE__, __LINE__)
+#define assert(EXPR) __MUST_PASS(EXPR, __FILE__, __LINE__)
 #endif
 
 enum RUNTIME_CHECK {

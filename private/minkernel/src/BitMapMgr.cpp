@@ -13,7 +13,7 @@
 #include <NeKit/KernelPanic.h>
 
 #define kBitMapMagic (0x10210U)
-#define kBitMapMaxSz gib_cast(4)
+#define kBitMapMaxSz (gib_cast(8))
 #define kBitMapMagIdx (0U)
 #define kBitMapSizeIdx (1U)
 #define kBitMapUsedIdx (2U)
