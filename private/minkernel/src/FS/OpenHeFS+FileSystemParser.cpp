@@ -544,7 +544,7 @@ namespace Detail {
   STATIC ATTRIBUTE(unused) _Output BOOL
       hefsi_update_in_status(HEFS_BOOT_NODE* boot, DriveTrait* mnt, const Utf8Char* dir_name,
                              HEFS_INDEX_NODE* node, BOOL delete_or_create) {
-    if (!boot || !mnt) return NO;
+    if (!boot || !mnt || !node) return NO;
 
     auto start = boot->fStartIND;
 

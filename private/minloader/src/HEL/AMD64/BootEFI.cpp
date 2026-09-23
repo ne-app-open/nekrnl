@@ -255,7 +255,7 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
 
   EfiInputKey key{};
 
-  ST->ConOut->OutputString(ST->ConOut, L"BootZ: Y for Memory testing or N to skip...\r\n");
+  ST->ConOut->OutputString(ST->ConOut, L"BootZ: Y for Memory Test or N to skip Memory Test...\r\n");
   ST->ConOut->OutputString(ST->ConOut, L"Choose? (Y/N)\r\n");
   ST->ConIn->Reset(ST->ConIn, TRUE);
 
@@ -368,7 +368,7 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
       ST->RuntimeServices->SetVariable(L"/props/problems_detected_cnt", kEfiGlobalNamespaceVarGUID,
                                        0, &sz_prob_cnt, &prob_cnt);
 
-      writer.Write("BootZ: OS detection module failed. Check logs.\n");
+      writer.Write("BootZ: OS detection module failed. Check logs.\r\n");
 
       EfiInputKey key{};
 
@@ -395,6 +395,8 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
         if (ret != kEfiOk) {
           Boot::Stop();
         }
+      } else {
+        Boot::Stop();
       }
     }
   }

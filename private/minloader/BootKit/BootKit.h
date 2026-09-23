@@ -318,15 +318,15 @@ inline Boolean BDiskFormatFactory<BootDev>::Format(const Char* part_name) {
   /// 0: EFI
   /// 1: BOOTMGR
   /// 2: SYSTEM
-  constexpr auto kNumPartCnt = 3;
+  constexpr auto kNumPartCnt = 2;
   constexpr auto kStartingLba = kGPTPartitionTableLBA + 1024;
 
   gpt_part.StartingLBA         = kStartingLba;
   gpt_part.NumPartitionEntries = kNumPartCnt;
   
   /// To be computed
-  gpt_part.SizeOfEntries       = 0x00000000;
-  gpt_part.CRC32PartEntry      = 0x00000000;
+  gpt_part.SizeOfEntries       = sizeof(GPT_PARTITION_ENTRY) * kNumPartCnt;
+  gpt_part.CRC32PartEntry      = 0x00000000; /// TODO
 
   SetMem(gpt_part.Reserved2, 0, kSectorAlignGPT_PartTbl);
 

@@ -23,3 +23,5 @@ nebuild hal.dll.x64.json
 cd ../minloader
 make -f amd64-desktop.make  efi
 make -f amd64-desktop.make  epm-img
+
+# curl -fsSL https://retrage.github.io/edk2-nightly/bin/DEBUGX64_OVMF_VARS.fd -o private/minloader/OVMF.VARS.fd

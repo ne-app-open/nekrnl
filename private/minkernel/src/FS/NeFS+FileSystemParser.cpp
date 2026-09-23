@@ -219,7 +219,7 @@ _Output NEFS_CATALOG_STRUCT* NeFileSystemParser::CreateCatalog(_Input const Char
 _Output NEFS_CATALOG_STRUCT* NeFileSystemParser::CreateCatalog(_Input const Char*  name,
                                                                _Input const Int32& flags,
                                                                _Input const Int32& kind) {
-  kout << "CreateCatalog(*...*)\r";
+  kout << "CreateCatalog(*...*)\n";
 
   if (!name) return nullptr;
   SizeT nameLen = rt_string_len(name);
@@ -227,7 +227,7 @@ _Output NEFS_CATALOG_STRUCT* NeFileSystemParser::CreateCatalog(_Input const Char
 
   Lba out_lba = 0UL;
 
-  kout << "Checking for path separator...\r";
+  kout << "Checking for path separator...\n";
 
   /// a directory should have a slash in the end.
   if (kind == kNeFSCatalogKindDir && name[nameLen - 1] != NeFileSystemHelper::Separator())
@@ -240,7 +240,7 @@ _Output NEFS_CATALOG_STRUCT* NeFileSystemParser::CreateCatalog(_Input const Char
   NEFS_CATALOG_STRUCT* catalog_copy = this->FindCatalog(name, out_lba);
 
   if (catalog_copy) {
-    kout << "Catalog already exists: " << name << ".\r";
+    kout << "Catalog already exists: " << name << ".\n";
     err_global_get() = kErrorFileExists;
     delete catalog_copy;
     catalog_copy = nullptr;
@@ -277,7 +277,7 @@ _Output NEFS_CATALOG_STRUCT* NeFileSystemParser::CreateCatalog(_Input const Char
 
   auto& drive = kMountpoint.A();
   if (catalog && catalog->Kind == kNeFSCatalogKindFile) {
-    kout << "Parent is a file.\r";
+    kout << "Parent is a file.\n";
     delete catalog;
     return nullptr;
   } else if (!catalog) {
@@ -338,7 +338,7 @@ _Output NEFS_CATALOG_STRUCT* NeFileSystemParser::CreateCatalog(_Input const Char
     return nullptr;
   }
 
-  kout << "Start finding catalog to allocate or empty space...\r";
+  kout << "Start finding catalog to allocate or empty space...\n";
 
   SizeT catalogSectors = (sizeof(NEFS_CATALOG_STRUCT) + drive.fSectorSz - 1) / drive.fSectorSz;
   while (start_free < part_block->StartCatalog + (part_block->CatalogCount * catalogSectors)) {
@@ -483,7 +483,7 @@ bool NeFileSystemParser::WriteCatalog(_Input const Char* catalog_name, Bool is_r
 
   auto catalog = this->GetCatalog(catalog_name);
   if (!catalog) {
-    kout << "NeFS: WriteCatalog failed to find catalog: " << catalog_name << "\n";
+    (Void)(kout << "NeFS: WriteCatalog failed to find catalog: " << catalog_name << kendl);
     return false;
   }
 
@@ -491,7 +491,7 @@ bool NeFileSystemParser::WriteCatalog(_Input const Char* catalog_name, Bool is_r
 
   if (!is_valid_size(size_of_data, maxSize)) {
     (Void)(kout << "NeFS: WriteCatalog called with invalid size: " << hex_number(size_of_data));
-    kout << "\n";
+    (Void)(kout << kendl);
 
     delete catalog;
     return false;
@@ -502,9 +502,11 @@ bool NeFileSystemParser::WriteCatalog(_Input const Char* catalog_name, Bool is_r
 
   if (!is_valid_lba(startFork, drive)) {
     (Void)(kout << "NeFS: WriteCatalog called with invalid LBA: " << hex_number(startFork));
-    kout << "\n";
+    (Void)(kout << kendl);
 
-    delete catalog;
+    if (catalog) delete catalog;
+    catalog = nullptr;
+
     return false;
   }
 
@@ -786,7 +788,7 @@ VoidPtr NeFileSystemParser::ReadCatalog(_Input _Output NEFS_CATALOG_STRUCT* cata
   if (!is_valid_size(dataSz, maxSize)) {
     kout << "NeFS: ReadCatalog called with invalid size: ";
     hex_number(dataSz);
-    kout << "\n";
+    (Void)(kout << kendl);
     return nullptr;
   }
 
@@ -795,7 +797,7 @@ VoidPtr NeFileSystemParser::ReadCatalog(_Input _Output NEFS_CATALOG_STRUCT* cata
   if (!is_valid_lba(dataForkLba, drive)) {
     kout << "NeFS: ReadCatalog called with invalid LBA: ";
     hex_number(dataForkLba);
-    kout << "\n";
+    (Void)(kout << kendl);
     return nullptr;
   }
 
@@ -857,7 +859,7 @@ namespace Ne::Kernel::NeFS {
 /// @brief Construct NeFS drives.
 /***********************************************************************************/
 Boolean fs_init_nefs(Void) {
-  kout << "Creating NeFS disk...\r";
+  kout << "Creating NeFS disk...\n";
 
   io_construct_main_drive(kMountpoint.A());
   

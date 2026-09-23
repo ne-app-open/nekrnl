@@ -49,12 +49,12 @@ DEBUG_MACRO = -D__DEBUG__
 endif
 
 ifeq ($(KVM_SUPPORT),)
-EMU_FLAGS=-M q35 -smp 4 -m 1G \
+EMU_FLAGS=-M q35 -smp 4 -m 4G \
     -bios $(BIOS) -cdrom $(BOOT) -boot d
 endif
 
 ifneq ($(KVM_SUPPORT),)
-EMU_FLAGS=-M q35 -smp 4 -m 1G \
+EMU_FLAGS=-M q35 -smp 4 -m 4G \
     -bios $(BIOS) -M q35 -cdrom $(BOOT) -boot d -accel kvm
 endif
 
