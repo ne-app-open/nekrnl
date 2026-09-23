@@ -9,10 +9,12 @@
 namespace Ne::Kernel {
 
 UInt8* RawIPAddress::Address() {
+  MUST_PASS(*fAddr != 0);
   return fAddr;
 }
 
 RawIPAddress::RawIPAddress(UInt8 bytes[4]) {
+  MUST_PASS(*bytes != 0);
   rt_copy_memory(bytes, fAddr, 4);
 }
 

@@ -7,6 +7,7 @@
 #include <NetworkKit/NetworkDevice.h>
 
 namespace Ne::Kernel {
+
 /// \brief Getter for fNetworkName.
 /// \return Network device name.
 const Char* NetworkDevice::Name() const {
@@ -25,4 +26,5 @@ Boolean NetworkDevice::Name(const Char* name) {
 
   return YES;
 }
+
 }  // namespace Ne::Kernel
