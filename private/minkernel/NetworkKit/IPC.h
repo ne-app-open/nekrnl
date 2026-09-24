@@ -6,6 +6,7 @@
 #ifndef NETWORKKIT_IPC_H
 #define NETWORKKIT_IPC_H
 
+#include <KernelKit/FileMgr.h>
 #include <NeKit/Config.h>
 #include <NeKit/KString.h>
 #include <hint/CompilerHint.h>
@@ -20,6 +21,11 @@
 #define kIPCRemoteInvalid "00:00"
 
 #define kIPCHeaderMagic (0x4950434)
+
+/// @brief Now the IPC I/O
+#ifndef kIPCBusFileExt
+#define kIPCBusFileExt ".swap"
+#endif
 
 namespace Ne::Kernel {
 struct IPC_ADDR;
@@ -43,7 +49,7 @@ struct PACKED IPC_ADDR final {
 typedef struct IPC_ADDR IPC_ADDR;
 
 enum {
-  kIPCNoEndian = 0,
+  kIPCNoEndian     = 0,
   kIPCLittleEndian = 10,
   kIPCBigEndian    = 11,
   kIPCMixedEndian  = 12,
@@ -80,6 +86,12 @@ BOOL ipc_sanitize_packet(_Input IPC_MSG* pckt_in);
 /// @retval true packet is correct.
 /// @retval false packet is incorrect and process has crashed.
 BOOL ipc_construct_packet(_Output _Input IPC_MSG** pckt_in);
+
+/// @brief Write to IPC swap file
+Ref<Int64> ipc_write_to_file(FileStreamASCII& fs, ErrorOrAny dat, SizeT& len);
+
+/// @brief Read from IPC swap file
+ErrorOrAny ipc_read_from_file(FileStreamASCII& fs, SizeT& len);
 }  // namespace Ne::Kernel
 
 #endif  // NETWORKKIT_IPC_H

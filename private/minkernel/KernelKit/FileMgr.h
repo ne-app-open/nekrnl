@@ -169,24 +169,23 @@ class IFilesystemMgr {
     return NO;
   }
 
-  virtual BOOL ReadDir(_Input NodePtr node, _Input UInt64 cookie,
-                       _Output FILEMGR_DIRENT* out, _Output UInt64* next_cookie) {
+  virtual BOOL ReadDir(_Input NodePtr node, _Input UInt64 cookie, _Output FILEMGR_DIRENT* out,
+                       _Output UInt64* next_cookie) {
     NE_UNUSED(node);
     NE_UNUSED(out);
     NE_UNUSED(cookie);
     NE_UNUSED(next_cookie);
-    
+
     err_local_get() = kErrorUnimplemented;
 
     return NO;
   }
 
-  virtual Int32 ReadLink(_Input NodePtr node, _Output Char* buf,
-                         _Input SizeT buf_size) {
+  virtual Int32 ReadLink(_Input NodePtr node, _Output Char* buf, _Input SizeT buf_size) {
     NE_UNUSED(node);
     NE_UNUSED(buf);
     NE_UNUSED(buf_size);
-    
+
     err_local_get() = kErrorUnimplemented;
 
     return -1;
@@ -350,8 +349,9 @@ class FileStream final {
 
     auto man = FSClass::GetMounted();
 
-    if (man) {
+    if (man && name) {
       VoidPtr ret = man->Read(name, fFile, kFileReadAll, sz);
+      MUST_PASS(ret);
       return ErrorOrAny(ret);
     }
 
@@ -367,9 +367,10 @@ class FileStream final {
 
     auto man = FSClass::GetMounted();
 
-    if (man) {
+    if (man && sz) {
       man->Seek(fFile, offset);
       auto ret = man->Read(fFile, kFileReadChunk, sz);
+      MUST_PASS(ret);
 
       return ErrorOrAny(ret);
     }
@@ -431,8 +432,11 @@ struct FILEMGR_RESTRICT final {
 
 /// @brief constructor
 template <typename Encoding, typename Class>
-inline FileStream<Encoding, Class>::FileStream(const Encoding* path, const Encoding* restrict_type)
-    : fFile(Class::GetMounted()->Open(path, restrict_type)) {
+inline FileStream<Encoding, Class>::FileStream(const Encoding* path,
+                                               const Encoding* restrict_type) {
+  MUST_PASS(Class::GetMounted());
+  fFile = Class::GetMounted()->Open(path, restrict_type);
+
   SizeT                  kRestrictCount  = kRestrictMax;
   const FILEMGR_RESTRICT kRestrictList[] = {{
                                                 .fRestrict = kRestrictR,
