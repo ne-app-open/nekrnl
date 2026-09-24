@@ -349,8 +349,9 @@ class FileStream final {
 
     auto man = FSClass::GetMounted();
 
-    if (man) {
+    if (man && name) {
       VoidPtr ret = man->Read(name, fFile, kFileReadAll, sz);
+      MUST_PASS(ret);
       return ErrorOrAny(ret);
     }
 
@@ -366,9 +367,10 @@ class FileStream final {
 
     auto man = FSClass::GetMounted();
 
-    if (man) {
+    if (man && sz) {
       man->Seek(fFile, offset);
       auto ret = man->Read(fFile, kFileReadChunk, sz);
+      MUST_PASS(ret);
 
       return ErrorOrAny(ret);
     }
