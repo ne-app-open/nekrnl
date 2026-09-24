@@ -21,6 +21,11 @@
 
 #define kIPCHeaderMagic (0x4950434)
 
+/// @brief Now the IPC I/O
+#ifndef kIPCBusFileExt
+#define kIPCBusFileExt ".swap"
+#endif
+
 namespace Ne::Kernel {
 struct IPC_ADDR;
 struct IPC_MSG;
