@@ -11,5 +11,24 @@
 
 /// AMLALE: Introduce the HAL calls here.
 
-EXTERN_C const Char* hali_acpi_power_profile(Void);
-EXTERN_C const Char* hali_set_acpi_power_profile(Void);
+#ifndef kHalBalancedStr
+#define kHalBalancedStr "balanced"
+#endif
+
+#ifndef kHalLowPowStr
+#define kHalLowPowStr "low-power"
+#endif
+
+#ifndef kHalPerformanceStr
+#define kHalPerformanceStr "performance"
+#endif
+
+#ifndef kNameLen
+#define kNameLen (128)
+#endif
+
+STATIC Char kPowerProfileStr[kNameLen] = {"invalid"};
+
+EXTERN_C const Char* hali_acpi_power_profile(Void) {
+    return kPowerProfileStr;
+}
