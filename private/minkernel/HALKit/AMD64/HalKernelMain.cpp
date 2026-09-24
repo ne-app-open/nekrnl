@@ -23,11 +23,11 @@
 STATIC Ne::Kernel::Void kei_init_drivers(Ne::Kernel::Void) {
   FileStreamASCII shmsInfo("/shms" kIPCBusFileExt, "rb");
 
-  //if (shmsInfo.Leak()) {
-    //SizeT len = 64;
-    //auto  ret = ipc_read_from_file(shmsInfo, len);
-    //MUST_PASS(ret.HasError());
-  //}
+  if (shmsInfo.Leak()) {
+    SizeT len = 64;
+    auto  ret = ipc_read_from_file(shmsInfo, len);
+    MUST_PASS(ret.HasError());
+  }
 
   PE32Loader ldr("/system/drvhost.exe");
 
