@@ -128,6 +128,8 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
 
   HEL::BootInfoHeader* handover_hdr = new HEL::BootInfoHeader();
 
+  MUST_PASS(handover_hdr);
+
   UIntPtr map_key = 0;
 
   Boot::BootTextWriter writer;
