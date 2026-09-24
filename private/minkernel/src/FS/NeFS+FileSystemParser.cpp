@@ -662,6 +662,8 @@ _Output NEFS_CATALOG_STRUCT* NeFileSystemParser::FindCatalog(_Input const Char* 
 /***********************************************************************************/
 _Output NEFS_CATALOG_STRUCT* NeFileSystemParser::GetCatalog(_Input const Char* name) {
   Lba unused = 0;
+  if (!name) return nullptr;
+
   return this->FindCatalog(name, unused, YES, YES);
 }
 
@@ -672,8 +674,10 @@ _Output NEFS_CATALOG_STRUCT* NeFileSystemParser::GetCatalog(_Input const Char* n
 /***********************************************************************************/
 _Output Boolean NeFileSystemParser::CloseCatalog(_Input _Output NEFS_CATALOG_STRUCT* catalog) {
   if (!catalog) return false;
+  
   delete catalog;
   catalog = nullptr;
+
   return true;
 }
 
