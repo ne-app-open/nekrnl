@@ -36,7 +36,7 @@ bool IPC_ADDR::operator!=(IPC_ADDR& addr) {
 static const constexpr auto kMIBMaxIpcMsg = mib_cast(512);
 
 Ref<Int64> ipc_write_to_file(FileStreamASCII& fs, ErrorOrAny dat, SizeT& len) {
-  std::atomic_flag flg = ATOMIC_FLAG_INIT;
+  STATIC std::atomic_flag flg = ATOMIC_FLAG_INIT;
 
   while (!flg.test_and_set(std::memory_order_acquire));
 
@@ -55,7 +55,7 @@ Ref<Int64> ipc_write_to_file(FileStreamASCII& fs, ErrorOrAny dat, SizeT& len) {
 }
 
 ErrorOrAny ipc_read_from_file(FileStreamASCII& fs, SizeT& len) {
-  std::atomic_flag flg = ATOMIC_FLAG_INIT;
+  STATIC std::atomic_flag flg = ATOMIC_FLAG_INIT;
 
   while (!flg.test_and_set(std::memory_order_acquire));
 
