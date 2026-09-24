@@ -257,6 +257,8 @@ _Output NodePtr HeFileSystemMgr::Open(_Input const Char* path, _Input const Char
   desc->fKind   = kOpenHeFSFileKindRegular;
   desc->fCursor = 0UL;
 
+  MUST_PASS(mParser);
+
   if (!mParser->INodeExists(&mDriveTrait, desc->fDir, desc->fName, desc->fKind)) {
     delete desc;
 
