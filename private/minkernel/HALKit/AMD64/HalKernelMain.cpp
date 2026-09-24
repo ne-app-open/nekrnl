@@ -23,11 +23,12 @@
 STATIC Ne::Kernel::Void kei_init_drivers(Ne::Kernel::Void) {
   FileStreamASCII shmsInfo("/shms" kIPCBusFileExt, "rb");
 
-  SizeT len = 64;
-  auto ret = ipc_read_from_file(shmsInfo, len);
+  if (shmsInfo.Leak()) {
+    SizeT len = 64;
+    auto  ret = ipc_read_from_file(shmsInfo, len);
+    MUST_PASS(ret.HasError());
+  }
 
-  MUST_PASS(ret.HasError());
-  
   PE32Loader ldr("/system/drvhost.exe");
 
   if (ldr.IsLoaded() && rtl_create_user_process(
@@ -280,17 +281,17 @@ EXTERN_C Ne::Kernel::Void hal_real_init(Ne::Kernel::Void) {
 
   STATIC Char* kCanary = new Char[512];
   if (!kCanary) return;
-  
-  rt_set_memory(kCanary, 0xDE, 512); 
+
+  rt_set_memory(kCanary, 0xDE, 512);
 
 #ifdef __FSKIT_INCLUDES_OPENHEFS__
   OpenHeFS::fs_init_openhefs();
-  HeFileSystemMgr::Mount(new HeFileSystemMgr());
+  IFilesystemMgr::Mount(new HeFileSystemMgr());
 #endif
 
 #ifdef __FSKIT_INCLUDES_NEFS__
   NeFS::fs_init_nefs();
-  NeFileSystemMgr::Mount(new NeFileSystemMgr());
+  IFilesystemMgr::Mount(new NeFileSystemMgr());
 #endif
 
   kei_init_drivers();
@@ -319,7 +320,7 @@ EXTERN_C Ne::Kernel::Void hal_real_init(Ne::Kernel::Void) {
 
   /// @note SwitchTeam overwrites the whole team, switching again here would
   /// discard the process we just spawned.
-  
+
   ke_stop(RUNTIME_CHECK_BOOTSTRAP, "Bug-Check failed at Kernel Main in HAL.");
   while (YES) rt_cli();
 }
