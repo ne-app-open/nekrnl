@@ -87,8 +87,8 @@ BOOL ipc_sanitize_packet(_Input IPC_MSG* pckt_in);
 /// @retval false packet is incorrect and process has crashed.
 BOOL ipc_construct_packet(_Output _Input IPC_MSG** pckt_in);
 
-Ref<Int64> ipc_write_to_file(FileStreamDefault& fs, ErrorOrAny dat, SizeT& len);
-ErrorOrAny ipc_read_from_file(FileStreamDefault& fs, SizeT& len) ;
+Ref<Int64> ipc_write_to_file(FileStreamASCII& fs, ErrorOrAny dat, SizeT& len);
+ErrorOrAny ipc_read_from_file(FileStreamASCII& fs, SizeT& len) ;
 }  // namespace Ne::Kernel
 
 #endif  // NETWORKKIT_IPC_H

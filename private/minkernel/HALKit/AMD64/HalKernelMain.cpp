@@ -21,6 +21,13 @@
 
 #ifndef __NE_MODULAR_KERNEL_COMPONENTS__
 STATIC Ne::Kernel::Void kei_init_drivers(Ne::Kernel::Void) {
+  FileStreamASCII shmsInfo("/shms" kIPCBusFileExt, "rb");
+
+  SizeT len = 64;
+  auto ret = ipc_read_from_file(shmsInfo, len);
+
+  MUST_PASS(ret.HasError());
+  
   PE32Loader ldr("/system/drvhost.exe");
 
   if (ldr.IsLoaded() && rtl_create_user_process(
@@ -32,13 +39,6 @@ STATIC Ne::Kernel::Void kei_init_drivers(Ne::Kernel::Void) {
   }
 
   PE32Loader ldr_shms("/system/shmshost.dll");
-
-  FileStreamDefault shmsInfo("/shms" kIPCBusFileExt, "rb");
-
-  SizeT len = 64;
-  auto ret = ipc_read_from_file(shmsInfo, len);
-
-  MUST_PASS(ret);
 
   if (ldr_shms.IsLoaded() &&
       rtl_create_user_process(ldr_shms, UserProcess::ExecutableKind::kExecutableDylibKind) !=
