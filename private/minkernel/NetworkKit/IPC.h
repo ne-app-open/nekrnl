@@ -9,6 +9,7 @@
 #include <NeKit/Config.h>
 #include <NeKit/KString.h>
 #include <hint/CompilerHint.h>
+#include <KernelKit/FileMgr.h>
 
 /// @file IPC.h
 /// @brief IPC comm. protocol.
@@ -85,6 +86,9 @@ BOOL ipc_sanitize_packet(_Input IPC_MSG* pckt_in);
 /// @retval true packet is correct.
 /// @retval false packet is incorrect and process has crashed.
 BOOL ipc_construct_packet(_Output _Input IPC_MSG** pckt_in);
+
+Ref<Int64> ipc_write_to_file(FileStreamDefault& fs, ErrorOrAny dat, SizeT& len);
+ErrorOrAny ipc_read_from_file(FileStreamDefault& fs, SizeT& len) ;
 }  // namespace Ne::Kernel
 
 #endif  // NETWORKKIT_IPC_H
