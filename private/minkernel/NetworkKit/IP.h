@@ -11,6 +11,14 @@
 #include <NeKit/KString.h>
 #include <NeKit/Ref.h>
 
+#ifndef kNeIP4Len
+#define kNeIP4Len (4)
+#endif
+
+#ifndef kNeIP6Len
+#define kNeIP6Len (16)
+#endif
+
 namespace Ne::Kernel {
 
 class RawIPAddress6;
@@ -35,7 +43,7 @@ class RawIPAddress final {
   BOOL operator!=(const RawIPAddress& ipv6);
 
  private:
-  UInt8 fAddr[4] = {};
+  UInt8 fAddr[kNeIP4Len] = {};
 
   friend IPFactory;  // it is the one creating these addresses, thus this
                      // is why the constructors are private.
@@ -62,7 +70,7 @@ class RawIPAddress6 final {
   bool operator!=(const RawIPAddress6& ipv6);
 
  private:
-  UInt8 fAddr[16] = {};
+  UInt8 fAddr[kNeIP6Len] = {};
 
   friend IPFactory;
 };
@@ -74,7 +82,7 @@ class IPFactory final {
  public:
   static ErrorOr<KBasicString<UInt8>> ToKString(Ref<RawIPAddress6>& ipv6);
   static ErrorOr<KBasicString<UInt8>> ToKString(Ref<RawIPAddress>& ipv4);
-  static bool                         IpCheckVersion4(const Char* ip);
+  static BOOL                         IpCheckVersion4(const Char* ip);
 };
 
 }  // namespace Ne::Kernel

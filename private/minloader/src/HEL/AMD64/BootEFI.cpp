@@ -321,19 +321,19 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
 
   // boot to kernel, if not bootnet this.
 
-  Boot::BootFileReader reader_libsys(L"libSystem.dll", image_handle);
+  Boot::BootFileReader reader_libsys(L"System.dll", image_handle);
   reader_libsys.ReadAll(0);
 
   if (reader_libsys.Blob()) {
     handover_hdr->f_SCIImage   = reader_libsys.Blob();
     handover_hdr->f_SCIImageSz = reader_libsys.Size();
 
-    writer.Write("BootZ: Loaded libSystem.dll.\r");
+    writer.Write("BootZ: Loaded System.dll.\r");
   } else {
     handover_hdr->f_SCIImage   = nullptr;
     handover_hdr->f_SCIImageSz = 0UL;
 
-    writer.Write("BootZ: No libSystem.dll, booting without a user process.\r");
+    writer.Write("BootZ: No System.dll, booting without a user process.\r");
   }
 
   Boot::BootFileReader reader_hal(L"hal.x64.dll", image_handle);
