@@ -8,11 +8,14 @@
 #include <NetworkKit/IPC.h>
 
 namespace Ne::Kernel {
+  
 /***********************************************************************************/
 /// @internal internal use for IPC system only.
 /// @brief The internal sanitize function.
 /***********************************************************************************/
 Bool ipc_int_sanitize_packet(IPC_MSG* pckt) {
+  if (!pckt) return NO;
+
   auto endian = RTL_ENDIAN(pckt, ((Char*) pckt)[0]);
 
   switch (endian) {
@@ -43,7 +46,7 @@ Bool ipc_int_sanitize_packet(IPC_MSG* pckt) {
 
 ipc_check_failed:
   err_local_get() = kErrorIPC;
-  return false;
+  return NO;
 }
 
 /***********************************************************************************/
@@ -53,10 +56,10 @@ ipc_check_failed:
 /***********************************************************************************/
 Bool ipc_sanitize_packet(IPC_MSG* pckt) {
   if (!pckt || !ipc_int_sanitize_packet(pckt)) {
-    return false;
+    return NO;
   }
 
-  return true;
+  return YES;
 }
 
 /***********************************************************************************/
@@ -124,4 +127,5 @@ Bool IPC_MSG::Pass(IPC_MSG* src, IPC_MSG* target) {
 
   return No;
 }
+
 }  // namespace Ne::Kernel
