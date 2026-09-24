@@ -43,9 +43,10 @@ struct PACKED IPC_ADDR final {
 typedef struct IPC_ADDR IPC_ADDR;
 
 enum {
-  kIPCLittleEndian = 0,
-  kIPCBigEndian    = 1,
-  kIPCMixedEndian  = 2,
+  kIPCNoEndian = 0,
+  kIPCLittleEndian = 10,
+  kIPCBigEndian    = 11,
+  kIPCMixedEndian  = 12,
 };
 
 enum {

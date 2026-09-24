@@ -73,7 +73,7 @@ BOOTLOADER=bootzldr.exe
 KERNEL_IMG=vmoskrnl.exe
 SYSCHK=chk.efi
 BOOTNET=net.efi
-SCIKIT=libSystem.dll
+SCIKIT=System.dll
 
 .PHONY: invalid-recipe
 invalid-recipe:

@@ -4,7 +4,7 @@
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="ifhO3zQZNW-sXvZMTmu8-2" value="&lt;p class=&quot;p1&quot;&gt;&lt;b&gt;System API (libSystem.dll&lt;/b&gt;&lt;b style=&quot;background-color: transparent;&quot;&gt;) – User-Space Interface (Ring 3, EL0)&lt;/b&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="ifhO3zQZNW-sXvZMTmu8-2" value="&lt;p class=&quot;p1&quot;&gt;&lt;b&gt;System API (System.dll&lt;/b&gt;&lt;b style=&quot;background-color: transparent;&quot;&gt;) – User-Space Interface (Ring 3, EL0)&lt;/b&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="240" y="340" width="360" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="ifhO3zQZNW-sXvZMTmu8-3" value="&lt;p class=&quot;p1&quot;&gt;&lt;b&gt;Applications &amp;amp; Dynamically Linked Libraries (Ring 3, EL0)&lt;/b&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">

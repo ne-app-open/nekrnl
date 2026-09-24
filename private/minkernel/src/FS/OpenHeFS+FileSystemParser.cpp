@@ -18,6 +18,10 @@
 #include <modules/AHCI/AHCI.h>
 #include <modules/ATA/ATA.h>
 
+#ifndef kOpenHeFSActiveEncoding
+#define kOpenHeFSActiveEncoding kOpenHeFSEncodingFlagsUTF8
+#endif
+
 namespace Ne::Kernel {
 
 namespace Detail {
@@ -673,7 +677,7 @@ namespace Detail {
 
       if (dir) mm_free_ptr(dir);
       dir = nullptr;
-      
+
       err_global_get() = kErrorFileNotFound;
       return NO;
     }
@@ -896,11 +900,12 @@ _Output Bool HeFileSystemParser::Format(_Input _Output DriveTrait* mnt, _Input c
   }
 
   /// TODO: Better way to create default directories than before.
-  const Utf8Char* kFileMap[] = {u8"/",        u8"/boot",  u8"/system", u8"/network",
-                                u8"/devices", u8"/media", u8"/dev",    (Utf8Char*) nullptr};
+  const Utf8Char* kFileMap[] = {u8"/",        u8"/boot",          u8"/system", u8"/network",
+                                u8"/devices", u8"/media",         u8"/dev",    u8"/mnt",
+                                u8"/mnt/c",   (Utf8Char*) nullptr};
 
   for (SizeT i = 0UL; kFileMap[i] != nullptr; ++i) {
-    this->CreateINodeDirectory(mnt, kOpenHeFSEncodingFlagsUTF8, kFileMap[i]);
+    this->CreateINodeDirectory(mnt, kOpenHeFSActiveEncoding, kFileMap[i]);
   }
 
   err_global_get() = kErrorSuccess;
@@ -1218,7 +1223,7 @@ _Output Bool HeFileSystemParser::INodeCtlManip(_Input DriveTrait* mnt, _Input co
 /// @return To check its status, see err_local_get().
 Boolean OpenHeFS::fs_init_openhefs(Void) {
   STATIC IMountpoint kMountpoint;
-  
+
   io_construct_main_drive(kMountpoint.A());
 
   if (kMountpoint.A().fPacket.fPacketReadOnly == YES) {
@@ -1226,7 +1231,7 @@ Boolean OpenHeFS::fs_init_openhefs(Void) {
     return YES;
   }
 
-  return HeFileSystemParser{}.Format(&kMountpoint.A(), kOpenHeFSEncodingFlagsUTF8,
+  return HeFileSystemParser{}.Format(&kMountpoint.A(), kOpenHeFSActiveEncoding,
                                      kOpenHeFSDefaultVolumeName);
 }
 
