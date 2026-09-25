@@ -13,6 +13,10 @@
 
 #include <hint/CompilerHint.h>
 
+#ifndef kNeNPos
+#define kNeNPos ~0UL
+#endif
+
 #ifndef ATTRIBUTE
 #define ATTRIBUTE(X) __attribute__((X))
 #endif

@@ -133,12 +133,12 @@ IMPORT_C UInt64 IoSeekFile(_Input Ref desc, _Input UInt64 off) {
   auto ret_ptr = nesys_syscall_arg_3(SYSCALL_HASH("IoSeekFile"), static_cast<VoidPtr>(desc),
                                       reinterpret_cast<VoidPtr>(&off));
 
-  if (!ret_ptr) return ~0UL;
+  if (!ret_ptr) return kNeNPos;
 
   auto ret = static_cast<volatile UInt64*>(ret_ptr);
 
   UInt64 result = *ret;
-  MUST_PASS(result != ~0UL);
+  MUST_PASS(result != kNeNPos);
 
   return result;
 }
@@ -146,7 +146,7 @@ IMPORT_C UInt64 IoSeekFile(_Input Ref desc, _Input UInt64 off) {
 IMPORT_C UInt64 IoTellFile(_Input Ref desc) {
   auto ret_ptr = nesys_syscall_arg_2(SYSCALL_HASH("IoTellFile"), static_cast<VoidPtr>(desc));
 
-  if (!ret_ptr) return ~0UL;
+  if (!ret_ptr) return kNeNPos;
 
   auto ret = static_cast<volatile UInt64*>(ret_ptr);
   return *ret;
