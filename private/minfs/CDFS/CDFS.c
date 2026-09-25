@@ -5,10 +5,35 @@
 
 #include <SystemKit/System.h>
 #include <modules/CDFS/CDFS.h>
+#include <DriverKit/DriverKit.h>
+
+#ifndef kNePartLen
+#define kNePartLen (128U)
+#endif
 
 /// @brief ANT and NeAnt CDFS driver.
 /// @note Uses the Shims framework for that matter.
 
 /// AMLALE: This is driver related, of course CDFS specs are different.
-struct CDFS_PRIV_CONFIG_HDR;
-struct CDFS_PRIV_HDR;
+struct CDFS_PRIV_HDR {
+  Char fPartName[kNePartLen];
+  SInt16 fPartType;
+  SInt32 fStartLba;
+  SInt32 fEndLba;
+  SInt16 fMediaSize;
+  SInt16 fMediaSectorSize;
+};
+
+/// @note Output file name is cdfs.exe
+
+DDK_EXTERN void KDriverMain(void) {
+  if (ke_call_dispatch("_HalIsCdfsDrvInstalled", 0, NULL, 0)) {
+    return;
+  }
+
+  ke_call_dispatch("_HalCdfsDrvInstall", 0, NULL, 0);
+
+  while (YES) {
+    
+  }
+}
