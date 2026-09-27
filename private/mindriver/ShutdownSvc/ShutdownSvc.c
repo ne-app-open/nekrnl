@@ -5,7 +5,7 @@
 
 #include <DriverKit/DriverKit.h>
 
-/// @note Output file name is ShutdownSvc.sys
+/// @note Output file name is shutdowndrv.exe
 
 DDK_EXTERN void KDriverMain(void) {
   if (ke_call_dispatch("_HalShutdownComputerNow", 0, NULL, 0)) {
