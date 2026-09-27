@@ -49,6 +49,7 @@ ProcessID& UserProcessTeam::Id() {
 /***********************************************************************************/
 
 Ref<UserProcess>& UserProcessTeam::AsRef() {
+  MUST_PASS(this->mCurrentProcess.Leak().GetParentTeam() != nullptr);
   return this->mCurrentProcess;
 }
 
