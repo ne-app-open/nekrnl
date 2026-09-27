@@ -11,5 +11,34 @@
 
 /// AMLALE: Introduce the HAL calls here.
 
-EXTERN_C const Char* hali_acpi_power_profile(Void);
-EXTERN_C const Char* hali_set_acpi_power_profile(Void);
+#ifndef kHalBalancedStr
+#define kHalBalancedStr "balanced"
+#endif
+
+#ifndef kHalLowPowStr
+#define kHalLowPowStr "low-power"
+#endif
+
+#ifndef kHalPerformanceStr
+#define kHalPerformanceStr "performance"
+#endif
+
+#ifndef kNameLen
+#define kNameLen (128)
+#endif
+
+STATIC Char kPowerProfileStr[kNameLen] = {"invalid"};
+
+EXTERN_C const Char* hali_acpi_power_profile(Void) {
+  return kPowerProfileStr;
+}
+
+Void hal_stop_runtime(Void) {
+  __builtin_unreachable();
+}
+
+Void ::Ne::Kernel::ke_runtime_check(BOOL expr, const Char* file, const Char* line) {
+  if (!expr) {
+    hal_stop_runtime();
+  }
+}
