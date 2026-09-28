@@ -360,12 +360,12 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
       UInt64  prob_cnt    = 0;
 
       // This variable counts how many times the OS detect had problems.
-      ST->RuntimeServices->GetVariable(L"/props/problems_detected_cnt", kEfiGlobalNamespaceVarGUID,
+      ST->RuntimeServices->GetVariable(L"/props/issues_cnt", kEfiGlobalNamespaceVarGUID,
                                        nullptr, &sz_prob_cnt, &prob_cnt);
 
       ++prob_cnt;
 
-      ST->RuntimeServices->SetVariable(L"/props/problems_detected_cnt", kEfiGlobalNamespaceVarGUID,
+      ST->RuntimeServices->SetVariable(L"/props/issues_cnt", kEfiGlobalNamespaceVarGUID,
                                        0, &sz_prob_cnt, &prob_cnt);
 
       writer.Write("BootZ: OS detection module failed. Check logs.\r\n");
