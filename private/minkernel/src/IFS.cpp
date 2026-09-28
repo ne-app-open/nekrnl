@@ -16,6 +16,14 @@
  *
  *************************************************************/
 
+#ifdef fsi_ifs_write
+#undef fsi_ifs_write
+#endif
+
+#ifdef fsi_ifs_read
+#undef fsi_ifs_read
+#endif
+
 /// Useful macros regarding the IFS.
 
 #define fsi_ifs_write(DRV, TRAITS, MP) (MP->DRV()).fOutput(TRAITS)

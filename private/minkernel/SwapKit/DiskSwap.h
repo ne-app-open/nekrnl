@@ -10,8 +10,8 @@
 #include <NeKit/Config.h>
 #include <hint/CompilerHint.h>
 
-#define kSwapPageFilePath "/boot/pagefile.sys"
-#define kSwapPageFilePathU8 u8"/boot/pagefile.sys"
+#define kSwapPageFilePath "mnt/c/Pages/pagefile.sys"
+#define kSwapPageFilePathU8 u8"mnt/c/Pages/pagefile.sys"
 
 /// @file DiskSwap.h
 /// @brief Virtual memory swap disk.
