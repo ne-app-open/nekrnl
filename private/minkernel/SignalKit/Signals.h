@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2024-2026, Amlal El Mahrouss (amlal@nekernel.org)
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
-// Official repository: https://github.com/ne-app-eu/krnl
+// Official repository: https://github.com/ne-app-open/nekrnl
 
 #ifndef SIGNALKIT_SIGNALS_H
 #define SIGNALKIT_SIGNALS_H
@@ -9,7 +9,7 @@
 #include <SignalKit/Config.h>
 
 /// @author Amlal El Mahrouss
-/// @brief Signal Generation API.
+/// @brief Signals API.
 
 namespace Ne::Kernel {
 
@@ -24,7 +24,7 @@ inline constexpr auto kKernelSignalSeed = 0x0895034f9fUL;
 /// @brief Generate signal from **Sig**
 template <rt_signal_kind Sig, SizeT Seed = kUserSignalSeed>
 inline rt_signal_kind sig_generate_unique() {
-  STATIC_PASS(Sig > SIGBAD, "Signal is zero (invalid)");
+  STATIC_PASS(Sig > SIGBAD, "Signal is zero (invalid signal id!)");
   return Sig ^ Seed;
 }
 
