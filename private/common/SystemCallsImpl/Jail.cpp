@@ -62,4 +62,18 @@ IMPORT_C JAIL* _JailGetCurrent(Void) {
   return kJailCurrent;
 }
 
-/// @brief What's needed now is that when a process does context switch, we grab its jail.
+IMPORT_C Void _JailSetCurrentExe(JAIL* jail) {
+  MUST_PASS(jail);
+  MUST_PASS(jail->fJailHash != 0);
+  MUST_PASS(kJailExecutables[jail->fJailHash] == jail);
+
+  if (jail) kJailCurrent = jail;
+}
+
+IMPORT_C Void _JailSetCurrentDLL(JAIL* jail) {
+  MUST_PASS(jail);
+  MUST_PASS(jail->fJailHash != 0);
+  MUST_PASS(kJailDLL[jail->fJailHash] == jail);
+
+  if (jail) kJailCurrent = jail;
+}
