@@ -53,7 +53,7 @@ JAIL*        kJailHostsDLL[kNeMaxJailListLen];
 STATIC       ATTRIBUTE(unused)
 JAIL*  kJailCurrent{nullptr};
 
-IMPORT_C JAIL* JailGetCurrent(Void) {
+IMPORT_C JAIL* _JailGetCurrent(Void) {
   if (!kJailCurrent) {
     MUST_PASS(kJailCurrent); // Every process shall have a jail, fail here.
     return nullptr;
