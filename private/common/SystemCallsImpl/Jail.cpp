@@ -77,3 +77,5 @@ IMPORT_C Void _JailSetCurrentDLL(JAIL* jail) {
 
   if (jail) kJailCurrent = jail;
 }
+
+/// @brief Hosts jail shall be exposed by another private API.
