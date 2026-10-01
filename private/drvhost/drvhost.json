@@ -1,9 +1,9 @@
 {
   "compiler_path": "x86_64-w64-mingw32-g++",
   "compiler_std": "c++20",
-  "headers_path": ["../libSystem", "../", "./", "../../public/frameworks"],
+  "headers_path": ["../libSystem", "../", "../basehost", "../../public/frameworks"],
   "sources_path": ["src/*.cpp", "src/*.S"],
-  "output_name": "basehost.exe",
+  "output_name": "drvhost.exe",
   "compiler_flags": [
     "-ffreestanding",
     "-shared",
@@ -15,9 +15,9 @@
     "-lSystem"
   ],
   "cpp_macros": [
-      "kLaunchHostVersion=0x0200",
-      "kLaunchHostVersionHighest=0x0200",
-      "kLaunchHostVersionLowest=0x0200"
+      "kDrvLaunchHostVersion=0x0200",
+      "kDrvLaunchHostVersionHighest=0x0200",
+      "kDrvLaunchHostVersionLowest=0x0200"
   ],
-  "description": "The Ne.app Base Process Host for user programs."
+  "description": "The Ne.app Base Driver Host to launch user drivers."
 }

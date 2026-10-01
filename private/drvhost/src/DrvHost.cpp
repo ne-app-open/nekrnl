@@ -11,15 +11,21 @@
 IMPORT_C SInt32 launch_startup_fn(Void) {
   /// start the LaunchHelpers.fwrk service, and make the launcher scheduable too (via mgmt.launch)
   UInt32* ret = static_cast<UInt32*>(::nesys_syscall_arg_1(
-      ::nesys_hash_64("__ne_register_base_host")));  // Register service based on program data.
+      ::nesys_hash_64("__ne_register_drv_host")));  // Register service based on program data.
 
   if (ret) {
     switch (*ret) {
       case kErrorSuccess: {
         ret = static_cast<UInt32*>(::nesys_syscall_arg_1(::nesys_hash_64(
-            "__ne_attach_base_host")));  // Attach this program as the service process.
-        HOSTKIT_INFO("Attach basegost.exe as the parent process");
-        
+            "__ne_attach_drv_host")));  // Attach this program as the service process.
+
+        // This call will read drvhost.conf and load the drivers in there.
+        UInt32* ret_next = static_cast<UInt32*>(::nesys_syscall_arg_1(::nesys_hash_64("__ne_register_drv_host_drivers")));
+
+        if (ret_next && *ret_next == kErrorSuccess) {
+          HOSTKIT_INFO("Loaded Drivers for drvhost.exe");
+        }
+
         return *ret;
       }
       default:
