@@ -519,7 +519,8 @@ ProcessID rtl_create_kernel_process(PEFLoader&                         exec,
     UserProcessScheduler::The().TheCurrentTeam().AsArray()[id].StackSize =
         *(UIntPtr*) stacksym.Leak().Leak();
 
-    mm_free_ptr(stacksym.Leak().Leak());
+    if (stacksym.Leak().Leak()) mm_free_ptr(stacksym.Leak().Leak());
+    stacksym.Leak().Leak() = nullptr;
   }
 
   return id;
@@ -566,7 +567,8 @@ ProcessID rtl_create_user_process(PEFLoader&                         exec,
     UserProcessScheduler::The().TheCurrentTeam().AsArray()[id].StackSize =
         *(UIntPtr*) stacksym.Leak().Leak();
 
-    mm_free_ptr(stacksym.Leak().Leak());
+    if (stacksym.Leak().Leak()) mm_free_ptr(stacksym.Leak().Leak());
+    stacksym.Leak().Leak() = nullptr;
   }
 
   return id;
