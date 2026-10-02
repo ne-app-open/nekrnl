@@ -73,6 +73,8 @@ class JsonObject final {
 /// ================================================================================
 template <typename CharType>
 struct BasicJsonStreamReader final {
+  STATIC JsonObject<CharType> ReadOnce(const CharType* full_array) { return In(full_array); }
+
   STATIC JsonObject<CharType> In(const CharType* full_array) {
     auto    start_val   = '{';
     auto    end_val     = '}';
@@ -142,13 +144,13 @@ struct BasicJsonStreamReader final {
 /// @brief AsciiJsonStream and WideJsonStream type definitions.
 /// ================================================================================
 using AsciiJsonStream = Stream<BasicJsonStreamReader<Char>, JsonObject<Char>>;
-using WideJsonStream = Stream<BasicJsonStreamReader<WideChar>, JsonObject<WideChar>>;
+using WideJsonStream  = Stream<BasicJsonStreamReader<WideChar>, JsonObject<WideChar>>;
 
 /// ================================================================================
-/// @brief UTF*JsonStream type definitions.
+/// @brief Utf*JsonStream type definitions.
 /// ================================================================================
-using Utf8JsonStream = Stream<BasicJsonStreamReader<UInt8>, JsonObject<UInt8>>;
-using Utf16JsonStream = Stream<BasicJsonStreamReader<UInt16>, JsonObject<UInt16>>;
+using Utf8JsonStream  = Stream<BasicJsonStreamReader<Char8>, JsonObject<Char8>>;
+using Utf16JsonStream = Stream<BasicJsonStreamReader<Char16>, JsonObject<Char16>>;
 }  // namespace Ne::Kernel
 
 #endif

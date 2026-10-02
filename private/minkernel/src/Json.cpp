@@ -4,3 +4,7 @@
 // Official repository: https://github.com/ne-app-eu/krnl
 
 #include <NeKit/Json.h>
+
+namespace Ne::Kernel {
+/// @note Leave it empty for now.
+}  // namespace Ne::Kernel
