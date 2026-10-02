@@ -6,7 +6,7 @@
 #ifndef NEKIT_JSON_H
 #define NEKIT_JSON_H
 
-/// @brief Ne::Kernel JSON API.
+/// @brief NeAnt JSON API for the configuration files.
 
 #include <CompilerKit/CompilerKit.h>
 #include <NeKit/Config.h>
@@ -71,14 +71,15 @@ class JsonObject final {
 /// ================================================================================
 /// @brief JsonObject stream reader helper for ASCII.
 /// ================================================================================
-struct AsciiJsonStreamReader final {
-  STATIC JsonObject<Char> In(const Char* full_array) {
+template <typename CharType>
+struct BasicJsonStreamReader final {
+  STATIC JsonObject<CharType> In(const CharType* full_array) {
     auto    start_val   = '{';
     auto    end_val     = '}';
     Boolean probe_value = false;
 
     if (full_array[0] != start_val) {
-      if (full_array[0] != '[') return JsonObject<Char>{0, 0};
+      if (full_array[0] != '[') return JsonObject<CharType>{0, 0};
 
       start_val = '[';
       end_val   = ']';
@@ -91,7 +92,7 @@ struct AsciiJsonStreamReader final {
     SizeT key_len   = 0;
     SizeT value_len = 0;
 
-    JsonObject<Char> type(kNeJsonMaxLen, kNeJsonMaxLen);
+    JsonObject<CharType> type(kNeJsonMaxLen, kNeJsonMaxLen);
 
     for (SizeT i = 1; i < len; ++i) {
       if (full_array[i] == '\r' || full_array[i] == '\n') continue;
@@ -138,9 +139,16 @@ struct AsciiJsonStreamReader final {
 };
 
 /// ================================================================================
-/// @brief AsciiJsonStream type definition.
+/// @brief AsciiJsonStream and WideJsonStream type definitions.
 /// ================================================================================
-using AsciiJsonStream = Stream<AsciiJsonStreamReader, JsonObject<Char>>;
+using AsciiJsonStream = Stream<BasicJsonStreamReader<Char>, JsonObject<Char>>;
+using WideJsonStream = Stream<BasicJsonStreamReader<WideChar>, JsonObject<WideChar>>;
+
+/// ================================================================================
+/// @brief UTF*JsonStream type definitions.
+/// ================================================================================
+using Utf8JsonStream = Stream<BasicJsonStreamReader<UInt8>, JsonObject<UInt8>>;
+using Utf16JsonStream = Stream<BasicJsonStreamReader<UInt16>, JsonObject<UInt16>>;
 }  // namespace Ne::Kernel
 
 #endif
