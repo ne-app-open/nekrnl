@@ -3,9 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-app-eu/krnl
 
-/// For entries
+/// For entries et al.
 #include <ArchKit/ArchKit.h>
-
 // For common HAL routines
 #include <hal/HAL/HAL.h>
 
@@ -29,16 +28,16 @@
 
 STATIC Char kPowerProfileStr[kNameLen] = {"invalid"};
 
-EXTERN_C const Char* hali_acpi_power_profile(Void) {
-  return kPowerProfileStr;
-}
-
 Void hal_stop_runtime(Void) {
   __builtin_unreachable();
 }
 
-Void ::Ne::Kernel::ke_runtime_check(BOOL expr, const Char* file, const Char* line) {
+Void ::Ne::Kernel::ke_runtime_check(BOOL expr, const Char*, const Char*) {
   if (!expr) {
     hal_stop_runtime();
   }
+}
+
+EXTERN_C const Char* hali_acpi_power_profile(Void) {
+  return kPowerProfileStr;
 }
