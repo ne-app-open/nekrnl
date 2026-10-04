@@ -7,7 +7,7 @@
 #include <SystemKit/Syscall.h>
 
 IMPORT_C struct JAIL* JailGetCurrent(Void) {
-  auto ptr = nesys_syscall_arg_1(SYSCALL_HASH("JailGetCurrent"));
+  auto ptr = nesys_syscall_arg_1(SYSCALL_HASH("_JailGetCurrent"));
 
 #ifdef _DEBUG
   _rtl_assert(ptr != nullptr, "JailGetCurrent: Jail pointer is null");
@@ -16,4 +16,12 @@ IMPORT_C struct JAIL* JailGetCurrent(Void) {
   if (!ptr) return nullptr;
 
   return (struct JAIL*) ptr;
+}
+
+IMPORT_C Void JailSetCurrent(struct JAIL* ptr)
+{
+  if (!ptr) return;
+  if (ptr->fJailHash == 0) return;
+
+  nesys_syscall_arg_2(SYSCALL_HASH("_JailSetCurrentExe"), ptr);
 }
