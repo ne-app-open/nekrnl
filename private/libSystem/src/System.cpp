@@ -12,6 +12,10 @@ using namespace System;
 
 IMPORT_C Char* StrFmt(const Char* fmt, ...) {
   if (!fmt || *fmt == 0) return const_cast<Char*>("(null)");
+  PrintOut(nullptr, "%s", "Deprecated.");
+  
+  MUST_PASS(NO);
+  
   return const_cast<Char*>("(null)");
 }
 
@@ -265,9 +269,6 @@ IMPORT_C SInt32 ThrExitCurrentThread(SInt32 ex) {
 IMPORT_C SInt32 ThrExitMainThread(SInt32 exit_code) {
   nesys_syscall_arg_2(SYSCALL_HASH("ThrExitMainThread"),
                       reinterpret_cast<VoidPtr>(static_cast<UIntPtr>(exit_code)));
-
-  while (YES) {
-  }
 
   return exit_code;
 }

@@ -3,9 +3,7 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-app-eu/krnl
 
-/// For entries et al.
 #include <ArchKit/ArchKit.h>
-// For common HAL routines
 #include <hal/HAL/HAL.h>
 
 /// AMLALE: Introduce the HAL calls here.

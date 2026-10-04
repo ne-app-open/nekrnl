@@ -4,6 +4,7 @@
 // Official repository: https://github.com/ne-app-eu/krnl
 
 // For FNV hashing.
+
 #include <hal/HAL/HAL.h>
 
 /// @brief FNV-1a hash function for strings (64-bit version).
