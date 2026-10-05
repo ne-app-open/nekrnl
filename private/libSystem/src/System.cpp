@@ -123,6 +123,27 @@ IMPORT_C VoidPtr MmFillMemory(_Input VoidPtr dest, _Input UInt64 len, _Input UIn
   return dest;
 }
 
+/// @brief Write data to a file ref
+/// @param file_desc the file descriptor.
+/// @param out_data the data to write.
+/// @param sz_data the size of the data to write.
+/// @return the number of bytes written.
+IMPORT_C UInt32 IoWriteFile(_Input Ref file_desc, _Output VoidPtr out_data, UInt64 sz_data) {
+  if (!out_data) return kErrorInvalidData;
+
+  return *(UInt32*)nesys_syscall_arg_4(SYSCALL_HASH("IoWriteFile"), file_desc, out_data, &sz_data);
+}
+
+/// @brief Read data from a file.
+/// @param file_desc the file descriptor.
+/// @param out_data the data to read.
+/// @param sz_data the size of the data to read.
+IMPORT_C UInt32 IoReadFile(_Input Ref file_desc, _Output VoidPtr* out_data, UInt64 sz_data) {
+  if (!out_data) return kErrorInvalidData;
+
+  return *(UInt32*)nesys_syscall_arg_4(SYSCALL_HASH("IoReadFile"), file_desc, out_data, &sz_data);
+} 
+
 IMPORT_C Ref IoOpenFile(_Input const Char* path, _Input const Char* drv_letter) {
   return static_cast<Ref>(nesys_syscall_arg_3(SYSCALL_HASH("IoOpenFile"),
                                                Verify::sys_safe_cast<Char, Void>(path),
