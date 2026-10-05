@@ -34,5 +34,6 @@ struct JAIL _FINAL {
 /// @brief Get the current jail
 /// @return Pointer to the current jail structure, or NULL if not in a jail
 IMPORT_C struct JAIL* JailGetCurrent(Void);
+IMPORT_C Void JailSetCurrent(struct JAIL* ptr);
 
 #endif

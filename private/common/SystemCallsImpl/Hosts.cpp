@@ -75,3 +75,8 @@ IMPORT_C Void __ne_call_shutdown_service(Void) {
       kout << (kShutdownScheduled ? "Shutdown Called.\r" : "Nothing changed.\r");
     }
 }
+
+IMPORT_C Void _rtl_debug_break(Void) {
+  auto& process = UserProcessScheduler::The().TheCurrentProcess();
+  process.Crash();
+}

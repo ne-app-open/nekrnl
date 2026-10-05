@@ -25,6 +25,7 @@
 #define kPeApplicationMime "application/vnd-portable-executable"
 
 namespace Ne::Kernel {
+
 ///
 /// \name PE32Loader
 /// \brief PE32+ loader class.
@@ -80,8 +81,14 @@ enum { kPETypeInvalid, kPETypeText = 100, kPETypeData, kPETypeBSS };
 
 using PE_SECTION_INFO = LDR_SECTION_HEADER;
 
+/// \brief Code Manager process creation functions.
+
 ProcessID rtl_create_user_process(PE32Loader&                        exec,
                                   const UserProcess::ExecutableKind& process_kind);
+
+ProcessID rtl_kernel_user_process(PE32Loader&                        exec,
+                                  const UserProcess::ExecutableKind& process_kind);
+
 }  // namespace Ne::Kernel
 
 #endif
