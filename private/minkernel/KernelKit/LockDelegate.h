@@ -48,9 +48,9 @@ class LockDelegate final {
   LockDelegate& operator=(const LockDelegate&) = delete;
   LockDelegate(const LockDelegate&)            = delete;
 
-  bool Done() { return fLockStatus[kLockDone] == kLockDone; }
+  Bool Done() { return fLockStatus[kLockDone] == kLockDone; }
 
-  bool HasTimedOut() { return fLockStatus[kLockTimedOut] != kLockTimedOut; }
+  Bool HasTimedOut() { return fLockStatus[kLockTimedOut] != kLockTimedOut; }
 
  private:
   Atom<UInt> fLockStatus;

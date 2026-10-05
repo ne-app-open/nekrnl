@@ -84,6 +84,7 @@ using Any  = void*;
 using Lba = UInt64;
 
 using Char16 = char16_t;
+using Char8 = char8_t;
 
 enum struct Endian : UInt8 {
   kEndianInvalid,

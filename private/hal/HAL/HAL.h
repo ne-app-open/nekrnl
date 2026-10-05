@@ -81,7 +81,9 @@ EXTERN_C Void hali_remove_entry(const SInt64 hash);
 #endif
 
 EXTERN_C SSizeT hali_install_dispatch(const Char* name, rt_syscall_proc proc);
+
 EXTERN_C UInt64 hali_hash_fnv64(const Char* path);
+EXTERN_C UInt64 hali_hash_fnv64_utf8(const Utf8Char* path);
 
 #ifdef __cplusplus
 inline Array<HAL_CALL_ENTRY, kMaxDispatchCallCount> kRegisteredSystemCalls;

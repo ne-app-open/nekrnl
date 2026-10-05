@@ -3,21 +3,22 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-app-eu/krnl
 
-/// For entries
 #include <ArchKit/ArchKit.h>
-
-// For common HAL routines
 #include <hal/HAL/HAL.h>
+
+#ifndef kNeInvalidEntry
+#define kNeInvalidEntry (-1)
+#endif
 
 STATIC Ne::Kernel::Array<HAL_DISPATCH_ENTRY, kMaxDispatchCallCount> kDispatchCalls;
 
 EXTERN_C Ne::Kernel::SSizeT hali_install_dispatch(const Ne::Kernel::Char* name,
                                                  rt_syscall_proc         proc) {
-  if (!name || *name == 0) return -1;
+  if (!name || *name == 0) return kNeInvalidEntry;
+  if (!proc) return kNeInvalidEntry;
 
   auto hash = ke_hash_64(name);
-
-  if (!hash || !proc) return -1;
+  MUST_PASS(hash != 0);
 
   STATIC std::atomic_flag kLocked = ATOMIC_FLAG_INIT;
   while (kLocked.test_and_set(std::memory_order_acquire));
@@ -36,12 +37,16 @@ EXTERN_C Ne::Kernel::SSizeT hali_install_dispatch(const Ne::Kernel::Char* name,
 
   kLocked.clear(std::memory_order_release);
 
-  return -1;
+  return kNeInvalidEntry;
 }
 
 /// Interrupt handler for HAL.dll
 EXTERN_C Ne::Kernel::Void hal_call_enter(Ne::Kernel::UIntPtr rcx_hash, Ne::Kernel::UIntPtr arg) {
   if (!arg || !rcx_hash) return;
+
+#if defined(__GNUC__)
+  MUST_PASS(rcx_hash != __UINTPTR_MAX__);
+#endif
 
   STATIC std::atomic_flag kLocked = ATOMIC_FLAG_INIT;
   while (kLocked.test_and_set(std::memory_order_acquire));

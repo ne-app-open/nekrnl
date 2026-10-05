@@ -8,7 +8,8 @@
     "./"
   ],
   "sources_path": [
-    "src/*.cpp"
+    "src/*.cpp",
+    "../common/HALCallsImpl/*.cpp"
   ],
   "output_name": "hal.x64.dll",
   "compiler_flags": [
@@ -25,5 +26,5 @@
     "kHALVersionLowest=0x0100",
     "__NE_AMD64__"
   ],
-  "description": "The Ne.app NeKernel Hardware Abstraction Layer."
+  "description": "The Ne.app NeAnt Kernel Hardware Abstraction Layer."
 }

@@ -8,6 +8,7 @@
 
 // begin of ascii 'readable' characters. (A, C, C, 1, 2)
 #define kGUIDAsciiBegin 47
+
 // @brief Size of UUID.
 #define kGUIDSize 37
 
@@ -38,6 +39,8 @@ auto cf_make_sequence(const Array<UInt32, 10>& uuidSeq) -> Ref<GUIDSequence*> {
 // @brief Tries to make a guid out of a string.
 // This function is not complete for now
 auto cf_try_guid_to_string(Ref<GUIDSequence*>& seq) -> ErrorOr<Ref<KString>> {
+  if (!seq.Leak()) return {};
+  
   Char buf[kGUIDSize] = {0};
 
   for (SizeT index = 0; index < 16; ++index) {

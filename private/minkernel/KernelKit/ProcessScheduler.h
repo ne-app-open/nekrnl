@@ -20,6 +20,7 @@ inline UserProcessTeam kMidUserTeam;
 inline UserProcessTeam kRTUserTeam;
 
 inline UserProcessTeam kDLLTeam;
+inline UserProcessTeam kHostsTeam;
 
 /// @brief Remote processes.
 inline UserProcessTeam kServicesTeam;
