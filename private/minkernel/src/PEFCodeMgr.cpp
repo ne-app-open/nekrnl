@@ -507,6 +507,7 @@ ProcessID rtl_create_kernel_process(PEFLoader&                         exec,
     if (!stacksym.Leak().Leak()) {
       UserProcessScheduler::The().Remove(id);
       mm_free_ptr(stacksym.Leak().Leak());
+      
       return kCPSInvalidPID;
     }
 

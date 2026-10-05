@@ -8,7 +8,12 @@
 
 #include <SystemKit/System.h>
 
+#ifndef voidptr_cast
+#define voidptr_cast(x) static_cast<VoidPtr>(x)
+#endif
+
 namespace System::Verify {
+
 /// @author 0xf00sec, and Amlal El Mahrouss
 /// @brief safe cast operator.
 template <class T, class R>
@@ -38,6 +43,7 @@ constexpr R* sys_constexpr_cast(T* ptr) {
   static_assert(is_castable<T, R>::value, "types cannot be casted.");
   return static_cast<R*>(ptr);
 }
+
 }  // namespace System::Verify
 
 #endif
