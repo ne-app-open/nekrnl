@@ -1,7 +1,7 @@
 {
     "compiler_path": "x86_64-w64-mingw32-g++",
     "compiler_std": "c++20",
-    "headers_path": ["../", "./", "../../../src", "../../../private/minkernel"],
+    "headers_path": ["../", "./", "../../../private/libSystem", "../../../private", "../../../private/minkernel"],
     "sources_path": ["src/*.cc"],
     "output_name": "./dist/DiskImage.fwrk.dll",
     "compiler_flags": [
@@ -9,7 +9,9 @@
       "-shared",
       "-fno-rtti",
       "-fno-exceptions",
-      "-Wl,--subsystem=17"
+      "-Wl,--subsystem=17",
+      "-L../../../private/libSystem",
+      "-lSystem"
     ],
     "cpp_macros": [
       "kDIVersion=0x0100",
