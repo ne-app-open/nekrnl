@@ -3,6 +3,13 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-app-eu/krnl
 
+#include <HALKit/ARM64/ApplicationProcessor.h>
+#include <HALKit/ARM64/Processor.h>
+#include <KernelKit/DebugOutput.h>
+#include <KernelKit/HardwareThreadScheduler.h>
+#include <KernelKit/ProcessScheduler.h>
+#include <KernelKit/Timer.h>
+
 #define GICD_BASE 0x08000000
 #define GICC_BASE 0x08010000
 
@@ -20,16 +27,10 @@
 #define GICC_IAR 0x00C
 #define GICC_EOIR 0x010
 
-#include <HALKit/ARM64/ApplicationProcessor.h>
-#include <HALKit/ARM64/Processor.h>
-#include <KernelKit/DebugOutput.h>
-#include <KernelKit/HardwareThreadScheduler.h>
-#include <KernelKit/ProcessScheduler.h>
-#include <KernelKit/Timer.h>
-
 // ================================================================= //
 
 namespace Ne::Kernel {
+  
 struct HAL_HARDWARE_THREAD final {
   HAL::StackFramePtr mFramePtr;
   ProcessID          mThreadID{0};
@@ -136,4 +137,5 @@ Void mp_init_cores(Void) {
     Detail::mp_setup_gic_el0();
   }
 }
+
 }  // namespace Ne::Kernel

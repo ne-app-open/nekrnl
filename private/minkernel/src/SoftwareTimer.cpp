@@ -12,7 +12,7 @@
 
 using namespace Ne::Kernel;
 
-SoftwareTimer::SoftwareTimer(Int64 seconds) : fWaitFor(seconds) {
+SoftwareTimer::SoftwareTimer(UInt64 seconds) : fWaitFor(seconds) {
   fDigitalTimer = new UIntPtr();
   MUST_PASS(fDigitalTimer);
 }

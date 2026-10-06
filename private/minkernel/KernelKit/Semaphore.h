@@ -89,7 +89,7 @@ inline Bool rtl_sem_wait(SemaphoreArr& sem, const UInt64& owner, const UInt64& t
     }
 
     err_global_get() = kErrorSuccess;
-    sem[kSemaphoreCountIndex]--;
+    --sem[kSemaphoreCountIndex];
 
     return true;
   }
@@ -110,7 +110,7 @@ inline Bool rtl_sem_wait(SemaphoreArr& sem, const UInt64& owner, const UInt64& t
       }
 
       err_global_get() = kErrorSuccess;
-      sem[kSemaphoreCountIndex]--;
+      --sem[kSemaphoreCountIndex];
 
       return true;
     }
