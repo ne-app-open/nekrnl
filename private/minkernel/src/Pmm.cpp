@@ -9,13 +9,14 @@
 
 namespace Ne::Kernel {
 
-  /***********************************************************************************/
+/***********************************************************************************/
 /// @brief Pmm constructor.
 /***********************************************************************************/
-Pmm::Pmm() : fPageMgr() {
-  kout << "[PMM] Allocate PageMemoryMgr.\r";
-}
+Pmm::Pmm() = default;
 
+/***********************************************************************************/
+/// @brief Pmm destructor.
+/***********************************************************************************/
 Pmm::~Pmm() = default;
 
 /***********************************************************************************/
@@ -24,10 +25,9 @@ Pmm::~Pmm() = default;
 /// @param readWrite is it r/w?
 /***********************************************************************************/
 Ref<PTEWrapper> Pmm::RequestPage(Boolean user, Boolean readWrite) {
-  PTEWrapper pt = fPageMgr.Leak().Request(user, readWrite, false, kPageSize, 0);
-
-  if (pt.fPresent) {
-    kout << "[PMM]: Allocation failed.\r";
+  PTEWrapper pt = fPageMgr.Leak().Request(user, readWrite, NO, kPageSize, 0);
+  
+  if (pt.Present()) {
     return {pt};
   }
 
@@ -35,15 +35,15 @@ Ref<PTEWrapper> Pmm::RequestPage(Boolean user, Boolean readWrite) {
 }
 
 Boolean Pmm::FreePage(Ref<PTEWrapper> PageRef) {
-  if (!PageRef) return false;
+  if (!PageRef) return NO;
 
-  PageRef.Leak().fPresent = false;
+  PageRef.Leak().fPresent = NO;
 
   return true;
 }
 
 Boolean Pmm::TogglePresent(Ref<PTEWrapper> PageRef, Boolean Enable) {
-  if (!PageRef) return false;
+  if (!PageRef) return NO;
 
   PageRef.Leak().fPresent = Enable;
 
@@ -51,7 +51,7 @@ Boolean Pmm::TogglePresent(Ref<PTEWrapper> PageRef, Boolean Enable) {
 }
 
 Boolean Pmm::ToggleUser(Ref<PTEWrapper> PageRef, Boolean Enable) {
-  if (!PageRef) return false;
+  if (!PageRef) return NO;
 
   PageRef.Leak().fRw = Enable;
 
@@ -59,7 +59,7 @@ Boolean Pmm::ToggleUser(Ref<PTEWrapper> PageRef, Boolean Enable) {
 }
 
 Boolean Pmm::ToggleRw(Ref<PTEWrapper> PageRef, Boolean Enable) {
-  if (!PageRef) return false;
+  if (!PageRef) return NO;
 
   PageRef.Leak().fRw = Enable;
 
@@ -67,10 +67,10 @@ Boolean Pmm::ToggleRw(Ref<PTEWrapper> PageRef, Boolean Enable) {
 }
 
 Boolean Pmm::ToggleShare(Ref<PTEWrapper> PageRef, Boolean Enable) {
-  if (!PageRef) return false;
+  if (!PageRef) return NO;
 
-  PageRef.Leak().fShareable = Enable;
-  PageRef.Leak().fExecDisable  = (Enable) ? YES : NO;
+  PageRef.Leak().fShareable   = Enable;
+  PageRef.Leak().fExecDisable = (Enable) ? YES : NO;
 
   return true;
 }

@@ -19,6 +19,8 @@ IMPORT_C UInt64 nesys_hash_64(const Char* path) {
 
   UInt64 hash = kFNVSeed;
 
+  MUST_PASS(hash != 0);
+
   while (*path) {
     hash ^= (Char) (*path++);
     hash *= kFNVPrime;
