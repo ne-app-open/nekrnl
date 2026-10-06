@@ -29,7 +29,7 @@ BOOL SoftwareTimer::Wait() {
   MUST_PASS(fDigitalTimer);
 
   while (*fDigitalTimer < (*fDigitalTimer + fWaitFor)) {
-    ++(*fDigitalTimer);
+    (*fDigitalTimer) += 1;
   }
 
   return YES;
