@@ -6,15 +6,19 @@
 #include <KernelKit/ProcessScheduler.h>
 
 namespace Ne::Kernel {
-/// @brief Wakes up thread.
+
+  /// @brief Wakes up thread.
 /// Wakes up thread from the hang state.
 Void mp_wakeup_thread(HAL::StackFrame* stack) {
-  NE_UNUSED(stack);
+  MUST_PASS(stack);
+  MUST_PASS(stack->IP);
 }
 
 /// @brief makes the thread sleep on a loop.
 /// hooks and hangs thread to prevent code from executing.
 Void mp_hang_thread(HAL::StackFrame* stack) {
-  NE_UNUSED(stack);
+  MUST_PASS(stack);
+  MUST_PASS(stack->IP);
 }
+
 }  // namespace Ne::Kernel

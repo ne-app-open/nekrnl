@@ -8,4 +8,7 @@
 
 #include <KernelKit/User.h>
 
+inline Ne::Kernel::UserPtr kLastUser = nullptr;
+inline Ne::Kernel::UserPtr kLastSuperUser = nullptr;
+
 #endif

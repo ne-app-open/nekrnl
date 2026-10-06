@@ -32,7 +32,7 @@ class ITimer {
 
 class SoftwareTimer final : public ITimer {
  public:
-  explicit SoftwareTimer(Int64 seconds);
+  explicit SoftwareTimer(UInt64 seconds);
   ~SoftwareTimer() override;
 
  public:
@@ -42,8 +42,8 @@ class SoftwareTimer final : public ITimer {
   BOOL Wait() override;
 
  private:
-  UIntPtr* fDigitalTimer{nullptr};
-  Int64    fWaitFor{0L};
+  volatile UIntPtr* fDigitalTimer{nullptr};
+  UInt64    fWaitFor{0L};
 };
 
 class HardwareTimer final : public ITimer {
@@ -59,7 +59,7 @@ class HardwareTimer final : public ITimer {
 
  private:
   volatile UInt8* fDigitalTimer{nullptr};
-  Int64           fWaitFor{0};
+  UInt64           fWaitFor{0};
 };
 
 inline constexpr UInt64 rtl_microseconds(UInt64 time) {
