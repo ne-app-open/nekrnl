@@ -58,7 +58,7 @@ EXTERN_C void hal_init_platform(Ne::Kernel::HEL::BootInfoHeader* handover_hdr) {
 
   kei_init_drivers();
 
-  FB::cg_clear_video();
+  FB::fb_clear_video();
 
   /************************************** */
   /*     INITIALIZE BIT MAP.              */

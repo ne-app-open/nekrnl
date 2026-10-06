@@ -8,13 +8,13 @@
 
 #include <NeKit/Config.h>
 
-#define cg_init() Ne::Kernel::UInt32 kCGCursor = 0
+#define fb_init() Ne::Kernel::UInt32 kCGCursor = 0
 
-#define cg_color(R, G, B) RGB(R, G, B)
+#define fb_color(R, G, B) RGB(R, G, B)
 
-#define cg_get_clear_clr() RGB(0, 0, 0)
+#define fb_get_clear_clr() RGB(0, 0, 0)
 
-#define cg_clear() kCGCursor = 0UL
+#define fb_clear() kCGCursor = 0UL
 
 #ifdef __NE_AMD64__
 /// @brief Performs Alpha drawing on the framebuffer.
@@ -57,7 +57,7 @@
     for (Ne::Kernel::UInt32 u = base_y; u < (height + base_y); ++u) {                               \
       *(((volatile Ne::Kernel::UInt32*) (kHandoverHeader->f_GOP.f_The +                             \
                                      4 * kHandoverHeader->f_GOP.f_PixelPerLine * i + 4 * u))) = \
-          cg_get_clear_clr();                                                                   \
+          fb_get_clear_clr();                                                                   \
     }                                                                                           \
   }
 
@@ -111,10 +111,12 @@
 #endif  // ifndef CORE_GFX_ACCESSIBILITY_H
 
 namespace FB {
-inline Void cg_clear_video() {
-  FBDrawInRegion(cg_get_clear_clr(), FB::CGAccessibilty::Height(), FB::CGAccessibilty::Width(), 0,
+
+inline Void fb_clear_video() {
+  FBDrawInRegion(fb_get_clear_clr(), FB::CGAccessibilty::Height(), FB::CGAccessibilty::Width(), 0,
                  0);
 }
+
 }  // namespace FB
 
 #endif

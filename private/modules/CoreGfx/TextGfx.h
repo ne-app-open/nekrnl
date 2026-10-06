@@ -145,7 +145,7 @@ inline const Ne::Kernel::UInt8 kFontBitmap[kFontNOFChars][kFontSizeX] = {
 
 };
 
-inline Ne::Kernel::Void cg_render_string_for_bitmap(const Ne::Kernel::UInt8* bitmap,
+inline Ne::Kernel::Void fb_render_string_for_bitmap(const Ne::Kernel::UInt8* bitmap,
                                                 const Ne::Kernel::SizeT x_sz, const Ne::Kernel::SizeT y_sz,
                                                 Ne::Kernel::Int32& x_dst, Ne::Kernel::Int32& y_dst,
                                                 Ne::Kernel::Int32& color) {
@@ -169,7 +169,7 @@ inline Ne::Kernel::Void cg_render_string_for_bitmap(const Ne::Kernel::UInt8* bit
   }
 }
 
-inline Ne::Kernel::Void cg_render_string(const Ne::Kernel::Char* text, Ne::Kernel::Int32 x_dst,
+inline Ne::Kernel::Void fb_render_string(const Ne::Kernel::Char* text, Ne::Kernel::Int32 x_dst,
                                      Ne::Kernel::Int32 y_dst, Ne::Kernel::Int32 color) {
   if (!text) return;
 
@@ -182,7 +182,7 @@ inline Ne::Kernel::Void cg_render_string(const Ne::Kernel::Char* text, Ne::Kerne
   if (len == 0) return;
 
   for (Ne::Kernel::SizeT i = 0; i < len; ++i) {
-    cg_render_string_for_bitmap(&kFontBitmap[(Ne::Kernel::UInt8) text[i]][0], kFontSizeX, kFontSizeY,
+    fb_render_string_for_bitmap(&kFontBitmap[(Ne::Kernel::UInt8) text[i]][0], kFontSizeX, kFontSizeY,
                                 x_dst, y_dst, color);
     y_dst += kFontSizeY;
   }
