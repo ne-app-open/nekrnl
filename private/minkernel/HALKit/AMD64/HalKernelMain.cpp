@@ -204,7 +204,7 @@ EXTERN_C Ne::Kernel::Int32 hal_init_platform(Ne::Kernel::HEL::BootInfoHeader* ha
   kGDTArray[4].fFlags      = 0;
   kGDTArray[4].fBaseHigh   = 0;
 
-  FB::cg_clear_video();
+  FB::fb_clear_video();
 
   // Load memory descriptors.
   HAL::Register64 gdt_reg;
