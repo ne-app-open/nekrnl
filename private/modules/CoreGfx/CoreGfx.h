@@ -113,7 +113,7 @@
 namespace FB {
 
 inline Void fb_clear_video() {
-  FBDrawInRegion(fb_get_clear_clr(), FB::CGAccessibilty::Height(), FB::CGAccessibilty::Width(), 0,
+  FBDrawInRegion(fb_get_clear_clr(), FB::CGAccessibiltyHelper::Height(), FB::CGAccessibiltyHelper::Width(), 0,
                  0);
 }
 

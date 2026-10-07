@@ -10,6 +10,7 @@
 /// @brief Math module implementation for CoreGfx.
 
 namespace UI {
+
 #ifdef NE_CORE_GFX_USE_DOUBLE
 typedef double fb_real_t;
 #else
@@ -21,9 +22,11 @@ typedef float fb_real_t;
 /// @param to to which value.
 /// @param stat
 /// @return Linear interop value.
-inline fb_real_t fb_math_lerp(fb_real_t to, fb_real_t from, fb_real_t stat) {
+inline fb_real_t fb_math_lerp(const fb_real_t& to, const fb_real_t& from, const fb_real_t& stat) {
+  if (stat == 0) return {};
   return (from) + (to - from) * stat;
 }
+
 }  // namespace UI
 
 #endif

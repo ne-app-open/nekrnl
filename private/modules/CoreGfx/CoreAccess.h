@@ -13,20 +13,22 @@
 #include <modules/CoreGfx/MathGfx.h>
 
 namespace FB {
+
 using namespace Ne::Kernel;
 
 template <SizeT N, typename NType>
 struct CGVec;
-class CGAccessibility;
+
+class CGAccessibiltyHelper ;
 
 /// @brief Video Accessbility Helper.
 /// Use this when dealing with video diemensions.
-class CGAccessibilty final {
-  explicit CGAccessibilty() = default;
-  ~CGAccessibilty()         = default;
+class CGAccessibiltyHelper final {
+  explicit CGAccessibiltyHelper() = default;
+  ~CGAccessibiltyHelper()         = default;
 
  public:
-  NE_COPY_DELETE(CGAccessibilty)
+  NE_COPY_DELETE(CGAccessibiltyHelper)
 
   static UInt64 Width() { return kHandoverHeader->f_GOP.f_Width; }
   static UInt64 Height() { return kHandoverHeader->f_GOP.f_Height; }
@@ -36,8 +38,11 @@ class CGAccessibilty final {
 template <SizeT N, typename NType>
 struct CGVec final {
   NType fVec[N]    = {};
+  
+public:
   explicit CGVec() = default;
   ~CGVec()         = default;
+
   NE_COPY_DEFAULT(CGVec)
 
   NType& operator[](const SizeT& i) {
@@ -49,6 +54,7 @@ struct CGVec final {
 using CGVec3U64 = CGVec<3, UInt64>;
 using CGVec2U64 = CGVec<2, UInt64>;
 using CGVec4U64 = CGVec<4, UInt64>;
+
 }  // namespace FB
 
 #endif  // !CORE_GFX_ACCESSIBILITY_H_

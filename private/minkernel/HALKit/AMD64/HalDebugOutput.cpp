@@ -107,7 +107,7 @@ EXTERN_C void ke_utf_io_write(IDevice<const Utf8Char*>* obj, const Utf8Char* byt
     if (kY > kHandoverHeader->f_GOP.f_Height) {
       kY = kFontSizeY;
 
-      FBDrawInRegion(fb_get_clear_clr(), FB::CGAccessibilty::Height(), FB::CGAccessibilty::Width(),
+      FBDrawInRegion(fb_get_clear_clr(), FB::CGAccessibiltyHelper::Height(), FB::CGAccessibiltyHelper::Width(),
                      0, 0);
     }
 
@@ -163,7 +163,7 @@ EXTERN_C void ke_io_write(IDevice<const Char*>* obj, const Char* bytes) {
     if (kY > kHandoverHeader->f_GOP.f_Height) {
       kY = kFontSizeY + 70;
 
-      FBDrawInRegion(fb_get_clear_clr(), FB::CGAccessibilty::Height(), FB::CGAccessibilty::Width(),
+      FBDrawInRegion(fb_get_clear_clr(), FB::CGAccessibiltyHelper::Height(), FB::CGAccessibiltyHelper::Width(),
                      0, 0);
     }
 
