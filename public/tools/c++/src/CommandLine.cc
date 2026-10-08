@@ -13,7 +13,7 @@ SInt32 main(SInt32 argc, Char* argv[]) {
   LIBSYS_UNUSED(argv);
 
   PrintOut(nullptr,
-           "cc: A C compiler needs to be installed.\rcc: This program is present as a placeholder.");
+           "cc: A C++ compiler needs to be installed.\rcc: This program is present as a placeholder.");
            
   return EXIT_FAILURE;
 }
