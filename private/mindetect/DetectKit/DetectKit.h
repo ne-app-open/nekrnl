@@ -24,4 +24,3 @@
 #define __NE_ONLY_SMP__ 1
 #endif
 #endif
-
