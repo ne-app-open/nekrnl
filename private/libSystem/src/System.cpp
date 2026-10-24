@@ -280,6 +280,10 @@ IMPORT_C SInt32 ThrDetachThread(ThreadRef ref) {
   return -kErrorInvalidData;
 }
 
+IMPORT_C Void RtlExitCurrentProcess(Void) {
+  nesys_syscall_arg_1(SYSCALL_HASH("RtlExitCurrentProcess"));
+}
+
 IMPORT_C SInt32 ThrExitCurrentThread(SInt32 ex) {
   if (auto ret = nesys_syscall_arg_2(SYSCALL_HASH("ThrExitCurrentThread"), (VoidPtr) &ex); ret)
     return *(SInt32*) ret;
@@ -307,6 +311,15 @@ IMPORT_C SInt32 SemClose(SemaphoreRef sem) {
   if (auto ret = nesys_syscall_arg_2(SYSCALL_HASH("SemClose"), sem); ret) return *(SInt32*) ret;
 
   return -kErrorInvalidData;
+}
+
+IMPORT_C Bool RtlExitProcess(UIntPtr handle, UIntPtr exit_code) {
+  if (!handle) return NO;
+
+  nesys_syscall_arg_3(SYSCALL_HASH("RtlExitProcess"), reinterpret_cast<VoidPtr>(handle),
+                      reinterpret_cast<VoidPtr>(&exit_code));
+
+  return NO;
 }
 
 // END
