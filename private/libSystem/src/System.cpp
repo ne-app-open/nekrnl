@@ -317,7 +317,7 @@ IMPORT_C Bool RtlExitProcess(UIntPtr handle, UIntPtr exit_code) {
   if (!handle) return NO;
 
   nesys_syscall_arg_3(SYSCALL_HASH("RtlExitProcess"), reinterpret_cast<VoidPtr>(handle),
-                      reinterpret_cast<VoidPtr>(exit_code));
+                      reinterpret_cast<VoidPtr>(&exit_code));
 
   return NO;
 }
