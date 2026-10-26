@@ -576,3 +576,5 @@ ProcessID rtl_create_user_process(PEFLoader&                         exec,
 }
 
 }  // namespace Ne::Kernel
+
+// END

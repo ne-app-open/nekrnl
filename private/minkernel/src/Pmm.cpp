@@ -76,3 +76,5 @@ Boolean Pmm::ToggleShare(Ref<PTEWrapper> PageRef, Boolean Enable) {
 }
 
 }  // namespace Ne::Kernel
+
+// END
