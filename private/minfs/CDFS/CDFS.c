@@ -13,3 +13,5 @@ DDK_EXTERN void KDriverMain(void) {
 
   ke_call_dispatch("_HalCdfsDrvInstall", 0, NULL, 0);
 }
+
+// END

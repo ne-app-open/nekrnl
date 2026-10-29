@@ -25,3 +25,4 @@ struct CDFS_PRIV_PART_HDR _FINAL {
   SInt16 fMediaSectorSize;
 };
 
+// END
