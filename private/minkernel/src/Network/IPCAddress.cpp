@@ -9,6 +9,12 @@
 #include <NetworkKit/IPC.h>
 #include <atomic>
 
+/// @brief The IPC I/O funct.
+
+#ifndef kIPCTagName
+#define kIPCTagName "IpcKrnlTxRxFn_"
+#endif
+
 namespace Ne::Kernel {
 
 bool IPC_ADDR::operator==(const IPC_ADDR& addr) {
@@ -26,12 +32,6 @@ bool IPC_ADDR::operator!=(const IPC_ADDR& addr) {
 bool IPC_ADDR::operator!=(IPC_ADDR& addr) {
   return addr.UserProcessID != this->UserProcessID || addr.UserProcessTeam != this->UserProcessTeam;
 }
-
-/// @brief The IPC I/O funct.
-
-#ifndef kIPCTagName
-#define kIPCTagName "IpcKrnlTxRxFn_"
-#endif
 
 static const constexpr auto kMIBMaxIpcMsg = mib_cast(512);
 

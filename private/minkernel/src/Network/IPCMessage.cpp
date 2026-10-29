@@ -106,9 +106,9 @@ Bool IPC_MSG::Pass(IPC_MSG* src, IPC_MSG* target) {
   if (src && target && (target != src)) {
     if (target->IpcSize > src->IpcSize) return No;
 
-    auto timeout = 0U;
+    UInt64 timeout = 0U;
 
-    constexpr auto kLimitTimeout = 1000000U;
+    constexpr UInt64 kLimitTimeout = 1000000U;
 
     while ((target->IpcLock % kIPCLockUsed) != 0) {
       if (timeout > kLimitTimeout) {
@@ -118,7 +118,8 @@ Bool IPC_MSG::Pass(IPC_MSG* src, IPC_MSG* target) {
 
     ++target->IpcLock;
 
-    rt_copy_memory_safe(src->IpcData, target->IpcData, src->IpcSize, target->IpcSize);
+    rt_copy_memory_safe(src->IpcData, target->IpcData, 
+                  src->IpcSize, target->IpcSize);
 
     --target->IpcLock;
 

@@ -8,7 +8,7 @@
 #include <KernelKit/User.h>
 #include <NeKit/Atom.h>
 #include <NeKit/KString.h>
-#include <SignalKit/Signals.h>
+#include <SignalKit/Signal.h>
 
 EXTERN_C Ne::Kernel::Void idt_handle_breakpoint(Ne::Kernel::UIntPtr rip);
 EXTERN_C Ne::Kernel::UIntPtr kApicBaseAddress;

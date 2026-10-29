@@ -172,6 +172,8 @@ Void user_init_std(const Bool& recovery) {
   else
     kCurrentUser = kGuest;
 
+  MUST_PASS(kCurrentUser);
+
   kHostUser = nullptr;
 
   (Void)(kout << "user_init_std: " << kRootUser->Name() << kendl);
@@ -179,3 +181,5 @@ Void user_init_std(const Bool& recovery) {
 }
 
 }  // namespace Ne::Kernel
+
+// END
