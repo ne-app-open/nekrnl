@@ -71,6 +71,7 @@ Int32 fs_ifs_read(IMountpoint* Mnt, DriveTrait& DrvTrait, Int32 DrvIndex) {
 Int32 fs_ifs_write(IMountpoint* Mnt, DriveTrait& DrvTrait, Int32 DrvIndex) {
   if (!Mnt) return kErrorDisk;
   if (DrvIndex >= IMountpoint::kDriveIndexInvalid) return kErrorDisk;
+  if (DrvTrait.fPacket.fPacketGood == false) return kErrorDisk;
 
   DrvTrait.fPacket.fPacketGood = false;
 
@@ -96,3 +97,5 @@ Int32 fs_ifs_write(IMountpoint* Mnt, DriveTrait& DrvTrait, Int32 DrvIndex) {
   return DrvTrait.fPacket.fPacketGood ? kErrorSuccess : kErrorDisk;
 }
 }  // namespace Ne::Kernel
+
+// END

@@ -8,9 +8,21 @@
 /// @note Output file name is shutdowndrv.exe
 
 DDK_EXTERN void KDriverMain(void) {
-  if (ke_call_dispatch("_HalShutdownComputerNow", 0, NULL, 0)) {
-    return;
+  while (!ke_call_dispatch("_HalShutdownComputerNow", 0, NULL, 0)) {
+    int time = 1000;
+
+    ke_call_dispatch("_HalPauseSec", 1, &time, sizeof(int));
   }
 
-  while (YES);
+  while (YES) {
+    ke_call_dispatch("_HalKernelStop", 0, NULL, 0);
+  }
 }
+
+DDK_EXTERN void KDriverExit(void) {
+  while (YES) {
+    ke_call_dispatch("_HalKernelStop", 0, NULL, 0);
+  }
+}
+
+// END

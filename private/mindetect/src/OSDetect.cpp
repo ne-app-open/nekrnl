@@ -15,3 +15,5 @@ EXTERN_C Int32 OSDetectModuleMain(Ne::Kernel::HEL::BootInfoHeader* handover) {
 
   return kEfiOk;
 }
+
+// END
