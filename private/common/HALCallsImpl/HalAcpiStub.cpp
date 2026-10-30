@@ -4,9 +4,9 @@
 // Official repository: https://github.com/ne-app-open/nekrnl
 
 #include <NeKit/NeKit.h>
-#include <KernelKit/UserProcessScheduler.h>
 
 #ifndef IMPORT_C
 #define IMPORT_C extern "C"
 #endif
 
+// EOF
