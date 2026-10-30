@@ -15,13 +15,13 @@ DDK_EXTERN void KDriverMain(void) {
   }
 
   while (YES) {
-    ke_call_dispatch("_HalKernelStop", 0, NULL, 0);
+    ke_call_dispatch("_HalFiniDriverRuntime", 0, NULL, 0);
   }
 }
 
 DDK_EXTERN void KDriverExit(void) {
   while (YES) {
-    ke_call_dispatch("_HalKernelStop", 0, NULL, 0);
+    ke_call_dispatch("_HalFiniDriverRuntime", 0, NULL, 0);
   }
 }
 

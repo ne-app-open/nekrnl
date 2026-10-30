@@ -19,24 +19,20 @@ DDK_EXTERN Void KDriverMain(Void) {
   
   kDhcpHdr = (struct DHCP_PRIV_PART_HDR*)kalloc(sizeof(struct DHCP_PRIV_PART_HDR));
   
-  if (kDhcpHdr) {
-    kDhcpHdr->fPartIPAddrCnt = 0;
-    kDhcpHdr->fPartFlags = 0;
-    kDhcpHdr->fPartType = 0;
-  }
+  MUST_PASS(kDhcpHdr);
+
+  if (kDhcpHdr)
+    MmFillMemory(kDhcpHdr, sizeof(struct DHCP_PRIV_PART_HDR), 0);
 }
 
 DDK_EXTERN Void KDriverExit(Void) {
   if (!kDhcpHdr) return;
-  
-  if (kDhcpHdr) {
-    kfree(kDhcpHdr);
-    kDhcpHdr = NULL;
-  }
 
-  while (YES) {
-    ke_call_dispatch("_HalExitDriver", 0, NULL, 0);
-  }
+  kfree(kDhcpHdr);
+  kDhcpHdr = NULL;
+
+  while (YES)
+    ke_call_dispatch("_HalFiniDriverRuntime", 0, NULL, 0);
 }
 
 // END

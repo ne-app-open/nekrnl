@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024-2026, Amlal El Mahrouss (amlal@nekernel.org)
+// Copyright 2026, Ne.app.
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-app-open/nekrnl
 
@@ -16,9 +16,7 @@ using namespace ::Ne::Kernel;
 STATIC ATTRIBUTE(unused)
 Int32  kHalCDFSInstalled = NO;
 
-IMPORT_C Int32 _HalIsCdfsDrvInstalled(Void) {
-  return kHalCDFSInstalled == YES;
-}
+IMPORT_C Int32 _HalIsCdfsDrvInstalled(Void) { return kHalCDFSInstalled == YES; }
 
 IMPORT_C Int32 _HalCdfsDrvInstall(Void) {
   if (kHalCDFSInstalled) return NO;
@@ -27,3 +25,5 @@ IMPORT_C Int32 _HalCdfsDrvInstall(Void) {
 
   return kHalCDFSInstalled == YES;
 }
+
+// EOF

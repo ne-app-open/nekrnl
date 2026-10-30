@@ -3,6 +3,13 @@
 # Licensed under the Apache License, Version 2.0 (see LICENSE file)
 # Official repository: https://github.com/ne-app-eu/krnl
 
+if(DEFINED NEANT_FORMAT_PROFILE)
+
+message("NeAnt: Running format script...")
+execute_process(COMMAND ./scripts/format.sh)
+
+endif()
+
 if(DEFINED NEANT_RELEASE_PROFILE)
 
 message("NeAnt: Running release AHCI build...")
