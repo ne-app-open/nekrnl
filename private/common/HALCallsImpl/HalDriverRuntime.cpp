@@ -4,7 +4,7 @@
 // Official repository: https://github.com/ne-app-open/nekrnl
 
 #include <NeKit/NeKit.h>
-#include <KernelKit/UserProcessScheduler.h>
+#include <SystemKit/System.h>
 
 #ifndef IMPORT_C
 #define IMPORT_C extern "C"
@@ -13,18 +13,14 @@
 using namespace ::Ne::Kernel;
 
 IMPORT_C Void _HalInitDriverRuntime(Void) {
-    MUST_PASS(UserProcessScheduler::The().TheCurrentProcess().Image.HasCode());
-    MUST_PASS(UserProcessScheduler::The().TheCurrentProcess().SubSystem == ProcessSubsystem::kProcessSubsystemDriver);
-
-    UserProcessScheduler::The().TheCurrentProcess().Wake(YES);
+    MUST_PASS(RtlSpawnIB(SchedGetCurrentProcessID()));
 }
 
 IMPORT_C Void _HalFiniDriverRuntime(Void) {
-    MUST_PASS(UserProcessScheduler::The().TheCurrentProcess().Image.HasCode());
-    MUST_PASS(UserProcessScheduler::The().TheCurrentProcess().SubSystem == ProcessSubsystem::kProcessSubsystemDriver);
-
-    UserProcessScheduler::The().TheCurrentProcess().Exit(kErrorSuccess);
+    MUST_PASS(SchedGetCurrentProcessID() >= 0);
     
+    RtlExitProcess(0, kErrorSuccess);
+
     while (YES)
         MUST_PASS(NO);
 }
