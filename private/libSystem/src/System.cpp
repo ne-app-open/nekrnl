@@ -280,6 +280,29 @@ IMPORT_C SInt32 ThrDetachThread(ThreadRef ref) {
   return -kErrorInvalidData;
 }
 
+IMPORT_C UIntPtr RtlSpawnProcess(const Char* process_path, UInt32 argc, Char** argv, Char** envp,
+                                 UInt32 envp_len) {
+  if (!process_path) return 0;
+  if (!*process_path) return 0;
+    
+  if (argv) {
+    if (!argc) return 0;
+  }
+                                
+  if (envp) {
+    if (!envp_len) return 0;
+  }
+
+  UIntPtr return_pid = 0;
+
+  return_pid = *(UIntPtr*)nesys_syscall_arg_4(nesys_hash_64("RtlSpawnProcess"), (VoidPtr)process_path,
+                      argv, envp);
+
+  MUST_PASS(return_pid != 0);
+
+  return return_pid;
+}
+
 IMPORT_C Void RtlExitCurrentProcess(Void) {
   nesys_syscall_arg_1(SYSCALL_HASH("RtlExitCurrentProcess"));
 }

@@ -3,6 +3,16 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-app-eu/krnl
 
+#include <ArchKit/ArchKit.h>
+#include <HALKit/AMD64/Processor.h>
+#include <KernelKit/BinaryMutex.h>
+#include <KernelKit/HardwareThreadScheduler.h>
+#include <KernelKit/ProcessScheduler.h>
+#include <KernelKit/Timer.h>
+#include <NeKit/KernelPanic.h>
+#include <modules/ACPI/ACPIFactoryInterface.h>
+#include <modules/CoreGfx/TextGfx.h>
+
 #define APIC_MAG "APIC"
 
 #define APIC_ICR_LOW 0x300
@@ -20,16 +30,6 @@
 #define APIC_BASE_MSR 0x1B
 #define APIC_BASE_MSR_BSP 0x100
 #define APIC_BASE_MSR_ENABLE 0x800
-
-#include <ArchKit/ArchKit.h>
-#include <HALKit/AMD64/Processor.h>
-#include <KernelKit/BinaryMutex.h>
-#include <KernelKit/HardwareThreadScheduler.h>
-#include <KernelKit/ProcessScheduler.h>
-#include <KernelKit/Timer.h>
-#include <NeKit/KernelPanic.h>
-#include <modules/ACPI/ACPIFactoryInterface.h>
-#include <modules/CoreGfx/TextGfx.h>
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -92,10 +92,10 @@ EXTERN_C Void hal_send_ipi_msg(UInt32 target, UInt32 apic_id, UInt8 vector) {
 
   ke_dma_write<UInt32>(target, APIC_ICR_HIGH, apic_id << 24);
   
-  const auto vecVal = 0x00000600 | 0x00004000 | 0x00000000 | vector;
-  MUST_PASS(vecVal > 0);
+  const auto vec_val = 0x00000600 | 0x00004000 | 0x00000000 | vector;
+  MUST_PASS(vec_val > 0);
 
-  ke_dma_write<UInt32>(target, APIC_ICR_LOW, vecVal);
+  ke_dma_write<UInt32>(target, APIC_ICR_LOW, vec_val);
 
   while (Ne::Kernel::ke_dma_read<UInt32>(target, APIC_ICR_LOW) & 0x1000) {
     NE_UNUSED(0);
@@ -208,13 +208,7 @@ Void mp_init_cores(VoidPtr vendor_ptr) {
           kHWThread[kSMPCount].mThreadID = kAPICLocales[kSMPCount];
 
           ++kSMPCount;
-
-          kout << "AP: kind: LAPIC: ON.\r";
-        } else {
-          kout << "AP: kind: LAPIC: OFF.\r";
         }
-      } else {
-        kout << "AP: kind: UNKNOWN: OFF.\r";
       }
 
       entry_ptr += length;
@@ -224,3 +218,5 @@ Void mp_init_cores(VoidPtr vendor_ptr) {
 }  // namespace Ne::Kernel::HAL
 
 ///////////////////////////////////////////////////////////////////////////////////////
+
+// EOF

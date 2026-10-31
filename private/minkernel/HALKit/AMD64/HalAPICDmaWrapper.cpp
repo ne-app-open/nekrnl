@@ -36,3 +36,5 @@ Void LAPICDmaWrapper::Write(UInt16 reg, UInt32 value) {
   io_apic[reg]             = value;
 }
 }  // namespace Ne::Kernel::HAL
+
+// EOF
