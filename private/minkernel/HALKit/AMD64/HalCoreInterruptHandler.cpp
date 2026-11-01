@@ -157,7 +157,7 @@ EXTERN_C Ne::Kernel::VoidPtr hal_system_call_enter(Ne::Kernel::UIntPtr rcx_hash,
     }
   }
 
-  return nullptr;
+  ke_stop(RUNTIME_CHECK_INVALID, "Invalid System Call ID.");
 }
 
 /// @brief Enter Ne::Kernel call from assembly (libDDK only).
