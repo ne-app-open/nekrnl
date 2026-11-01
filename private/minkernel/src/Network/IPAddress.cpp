@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-app-eu/krnl
 
-#include <NeKit/Utils.h>
 #include <NetworkKit/IP.h>
+#include <NeKit/Utils.h>
 
 namespace Ne::Kernel {
 
@@ -19,6 +19,8 @@ RawIPAddress::RawIPAddress(UInt8 bytes[4]) {
 }
 
 BOOL RawIPAddress::operator==(const RawIPAddress& ipv4) {
+  if (ipv4.fAddr[0] == 0) return false;
+
   for (SizeT index{}; index < 4; ++index) {
     if (ipv4.fAddr[index] != fAddr[index]) return false;
   }
@@ -27,6 +29,8 @@ BOOL RawIPAddress::operator==(const RawIPAddress& ipv4) {
 }
 
 BOOL RawIPAddress::operator!=(const RawIPAddress& ipv4) {
+  if (ipv4.fAddr[0] == 0) return false;
+
   for (SizeT index{}; index < 4; ++index) {
     if (ipv4.fAddr[index] == fAddr[index]) return false;
   }
@@ -35,9 +39,7 @@ BOOL RawIPAddress::operator!=(const RawIPAddress& ipv4) {
 }
 
 UInt8& RawIPAddress::operator[](const Size& index) {
-  kout << "[RawIPAddress::operator[]] Fetching Index...\r";
-
-  static UInt8 kIPPlaceholder = '0';
+  STATIC UInt8 kIPPlaceholder = '0';
   if (index >= 4) return kIPPlaceholder;
 
   return fAddr[index];
@@ -52,15 +54,15 @@ UInt8* RawIPAddress6::Address() {
 }
 
 UInt8& RawIPAddress6::operator[](const Size& index) {
-  kout << "[RawIPAddress6::operator[]] Fetching Index...\r";
-
-  static UInt8 kIPPlaceholder = '0';
+  STATIC UInt8 kIPPlaceholder = 'f';
   if (index >= 16) return kIPPlaceholder;
 
   return fAddr[index];
 }
 
 bool RawIPAddress6::operator==(const RawIPAddress6& ipv6) {
+  if (ipv6.fAddr[0] == 0) return false;
+
   for (SizeT index{}; index < 16; ++index) {
     if (ipv6.fAddr[index] != fAddr[index]) return false;
   }
@@ -69,6 +71,8 @@ bool RawIPAddress6::operator==(const RawIPAddress6& ipv6) {
 }
 
 bool RawIPAddress6::operator!=(const RawIPAddress6& ipv6) {
+  if (ipv6.fAddr[0] == 0) return false;
+
   for (SizeT index{}; index < 16; ++index) {
     if (ipv6.fAddr[index] == fAddr[index]) return false;
   }
@@ -78,12 +82,14 @@ bool RawIPAddress6::operator!=(const RawIPAddress6& ipv6) {
 
 ErrorOr<KBasicString<UInt8>> IPFactory::ToKString(Ref<RawIPAddress6>& ipv6) {
   NE_UNUSED(ipv6);
+
   auto kipv6 = KStringBuilder::Construct(ipv6.Leak().Address());
   return kipv6;
 }
 
 ErrorOr<KBasicString<UInt8>> IPFactory::ToKString(Ref<RawIPAddress>& ipv4) {
   NE_UNUSED(ipv4);
+  
   auto kipv4 = KStringBuilder::Construct(ipv4.Leak().Address());
   return kipv4;
 }
@@ -115,3 +121,5 @@ bool IPFactory::IpCheckVersion4(const Char* ip) {
 }
 
 }  // namespace Ne::Kernel
+
+// END

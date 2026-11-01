@@ -17,6 +17,10 @@
 #define kNeNPos ~0UL
 #endif
 
+#ifndef EOF
+#define EOF (-1)
+#endif
+
 #ifndef ATTRIBUTE
 #define ATTRIBUTE(X) __attribute__((X))
 #endif

@@ -125,3 +125,5 @@ inline MBCIAuthKeyType mbci_read_auth_key(_Input struct IMBCIHost* host) {
 }  // namespace Ne::Kernel
 
 #endif  // ifndef _INC_MODULE_MBCI_H_
+
+// END

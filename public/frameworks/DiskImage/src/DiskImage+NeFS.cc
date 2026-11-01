@@ -50,3 +50,5 @@ SInt32 DI::DIFormatFilesystemNeFS(struct DI_DISK_IMAGE& img) {
 
   return kDISuccessStatus;
 }
+
+// EOF

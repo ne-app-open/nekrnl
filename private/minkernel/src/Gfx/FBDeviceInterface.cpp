@@ -5,7 +5,7 @@
 
 #include <GfxKit/FB.h>
 
-using namespace Ne::Kernel;
+using namespace ::Ne::Kernel;
 
 /// @brief Class constructor
 /// @param Out Drive output
@@ -26,7 +26,7 @@ FBDeviceInterface& FBDeviceInterface::operator<<(FBDevicePacket* pckt) {
 
   if (pckt->fHeight == 0 || pckt->fWidth == 0) return *this;
 
-  this->fOut(this, pckt);
+  if (this->fOut) this->fOut(this, pckt);
 
   return *this;
 }
@@ -37,7 +37,9 @@ FBDeviceInterface& FBDeviceInterface::operator<<(FBDevicePacket* pckt) {
 FBDeviceInterface& FBDeviceInterface::operator>>(FBDevicePacket* pckt) {
   if (!pckt) return *this;
 
-  this->fIn(this, pckt);
+  if (pckt->fHeight == 0 || pckt->fWidth == 0) return *this;
+
+  if (this->fIn) this->fIn(this, pckt);
 
   return *this;
 }
@@ -47,3 +49,5 @@ FBDeviceInterface& FBDeviceInterface::operator>>(FBDevicePacket* pckt) {
 const Char* FBDeviceInterface::Name() const {
   return kDeviceMgrRootDirPath "fb{}";
 }
+
+// END

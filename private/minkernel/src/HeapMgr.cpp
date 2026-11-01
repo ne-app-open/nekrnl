@@ -258,3 +258,5 @@ _Output Boolean mm_protect_ptr(VoidPtr heap_ptr) {
 }
 
 }  // namespace Ne::Kernel
+
+// END
