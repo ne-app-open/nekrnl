@@ -182,3 +182,5 @@ EXTERN_C Ne::Kernel::Void hal_kernel_call_enter(Ne::Kernel::UIntPtr rcx_hash, Ne
     }
   }
 }
+
+// EOF

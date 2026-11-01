@@ -208,3 +208,5 @@ Utf8TerminalDevice Utf8TerminalDevice::The() {
 }
 
 }  // namespace Ne::Kernel
+
+// EOF
