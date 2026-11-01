@@ -45,6 +45,11 @@ STATIC Ne::Kernel::Void kei_init_drivers(Ne::Kernel::Void) {
       rtl_create_user_process(ldr_shms, UserProcess::ExecutableKind::kExecutableDylibKind) !=
           kCPSInvalidPID) {
     (Void)(kout << "hal_real_init: Spawned the NeAnt Shims Host.\r");
+
+    PE32Loader ldr_64("/system/logon64.exe");
+
+    if (ldr_64.IsLoaded())
+      rtl_create_user_process(ldr_64, UserProcess::ExecutableKind::kExecutableKind);
   } else {
     (Void)(kout << "hal_real_init: warning: Shims host did not spawn.\r");
     ke_stop(RUNTIME_CHECK_BOOTSTRAP, "Bug-Check failed at Shims DLL Host Init in HAL.");
