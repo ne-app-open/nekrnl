@@ -22,3 +22,5 @@ SInt32 DI::DIFormatFilesystemOpenHeFS(struct DI_DISK_IMAGE& img) {
 
   return kDIFailureStatus;
 }
+
+// EOF
