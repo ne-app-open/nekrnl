@@ -8,7 +8,7 @@
 #include <KernelKit/User.h>
 #include <NeKit/Atom.h>
 #include <NeKit/KString.h>
-#include <SignalKit/Signals.h>
+#include <SignalKit/Signal.h>
 
 EXTERN_C Ne::Kernel::Void idt_handle_breakpoint(Ne::Kernel::UIntPtr rip);
 EXTERN_C Ne::Kernel::UIntPtr kApicBaseAddress;
@@ -157,6 +157,7 @@ EXTERN_C Ne::Kernel::VoidPtr hal_system_call_enter(Ne::Kernel::UIntPtr rcx_hash,
     }
   }
 
+  ke_stop(RUNTIME_CHECK_INVALID, "Invalid System Call ID.");
   return nullptr;
 }
 
@@ -182,3 +183,5 @@ EXTERN_C Ne::Kernel::Void hal_kernel_call_enter(Ne::Kernel::UIntPtr rcx_hash, Ne
     }
   }
 }
+
+// EOF

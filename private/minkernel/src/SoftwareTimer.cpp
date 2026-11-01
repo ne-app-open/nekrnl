@@ -34,3 +34,5 @@ BOOL SoftwareTimer::Wait() {
 
   return YES;
 }
+
+// END

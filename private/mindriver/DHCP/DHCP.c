@@ -10,12 +10,29 @@
 /// @note This driver is used to only connect using a DHCP host behind the workstation. To avoid
 /// nightmare scenarios that could have been avoided.
 
-/// @brief Implemented in driver to implement driver.
-struct DHCP_PRIV_CONFIG_HDR;
-struct DHCP_PRIV_HDR;
+/// @note Output file name is dhcp.exe
 
-/// @note Output file name is DHCP.sys
+static struct DHCP_PRIV_PART_HDR* kDhcpHdr = NULL;
 
 DDK_EXTERN Void KDriverMain(Void) {
-  return;
+  if (kDhcpHdr) return;
+  
+  kDhcpHdr = (struct DHCP_PRIV_PART_HDR*)kalloc(sizeof(struct DHCP_PRIV_PART_HDR));
+  
+  MUST_PASS(kDhcpHdr);
+
+  if (kDhcpHdr)
+    MmFillMemory(kDhcpHdr, sizeof(struct DHCP_PRIV_PART_HDR), 0);
 }
+
+DDK_EXTERN Void KDriverExit(Void) {
+  if (!kDhcpHdr) return;
+
+  kfree(kDhcpHdr);
+  kDhcpHdr = NULL;
+
+  while (YES)
+    ke_call_dispatch("_HalFiniDriverRuntime", 0, NULL, 0);
+}
+
+// END

@@ -7,7 +7,7 @@
 #include <KernelKit/ProcessScheduler.h>
 #include <KernelKit/User.h>
 #include <NeKit/KString.h>
-#include <SignalKit/Signals.h>
+#include <SignalKit/Signal.h>
 
 EXTERN_C Ne::Kernel::Void int_handle_breakpoint(Ne::Kernel::UIntPtr rip);
 EXTERN_C BOOL         mp_handle_gic_interrupt_el0(Void);

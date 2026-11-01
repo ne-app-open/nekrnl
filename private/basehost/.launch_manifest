@@ -1,4 +1,5 @@
 [Launch]
 RunAsRoot=YES
-# NOTE: This has to be generated and passed here to enable all-trustee permissions.
-RootKey=
+RootKey=0
+[Shell]
+ShellPath=/mnt/c/sh

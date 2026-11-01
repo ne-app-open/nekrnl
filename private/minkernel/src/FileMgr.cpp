@@ -9,7 +9,7 @@
 /***********************************************************************************/
 //! @file FileMgr.cpp
 //! @brief File System Manager API.
-//! @author Amlal El Mahrouss (amlal@nekernel.org)
+//! @author Amlal El Mahrouss (amlal@nekernel.org) @ Ne.app
 /***********************************************************************************/
 
 namespace Ne::Kernel {

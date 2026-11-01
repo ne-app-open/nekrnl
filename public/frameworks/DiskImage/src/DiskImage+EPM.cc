@@ -41,3 +41,5 @@ SInt32 DI::DIFormatPartitionEPM(struct DI_DISK_IMAGE& img) {
 
   return kDISuccessStatus;
 }
+
+// EOF
