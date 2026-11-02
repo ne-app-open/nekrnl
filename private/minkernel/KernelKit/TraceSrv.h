@@ -15,8 +15,8 @@ namespace TraceSrv {
 
   inline constexpr auto kDebugCmdLen  = 256U;
   inline constexpr auto kDebugPort    = 51820;
-  inline constexpr auto kDebugMagic   = "NE1.0.0;";
-  inline constexpr auto kDebugVersion = 0x0100;
+  inline constexpr auto kDebugMagic   = "NE1.0.1;";
+  inline constexpr auto kDebugVersion = 0x0101;
   inline constexpr auto kDebugDelim   = ';';
   inline constexpr auto kDebugEnd     = '\r';
 
