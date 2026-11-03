@@ -149,7 +149,7 @@ IMPORT_C UInt32 IoReadFile(_Input Ref file_desc, _Output VoidPtr* out_data, UInt
 /// @param out_data the data to read.
 /// @param sz_data the size of the data to read.
 IMPORT_C UInt32 IoReadFileII(_Input Ref file_desc, _Output VoidPtr out_data, UInt64 sz_data) {
-  return *(UInt32*)nesys_syscall_arg_4(SYSCALL_HASH("IoReadFile"), file_desc, out_data, &sz_data);
+  return *(UInt32*)nesys_syscall_arg_4(SYSCALL_HASH("IoReadFileII"), file_desc, out_data, &sz_data);
 }
 
 IMPORT_C Ref IoOpenFile(_Input const Char* path, _Input const Char* drv_letter) {
