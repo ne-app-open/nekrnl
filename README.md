@@ -1,6 +1,6 @@
 <!-- Read Me of Ne.app Kernel -->
 
-# Ne.app Kernel
+# Ne.app Kernel 🏗️
 
 > [!NOTE]
 > On Windows, you will need to use the setup link at:

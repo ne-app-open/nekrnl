@@ -26,9 +26,9 @@
 
 STATIC Char kPowerProfileStr[kNameLen] = {"invalid"};
 
-Void hal_stop_runtime(Void) {
-  __builtin_unreachable();
-}
+EXTERN_C Void hal_stop_runtime(Void) { CANT_REACH(); }
+
+EXTERN_C const Char* hali_acpi_power_profile(Void) { return kPowerProfileStr; }
 
 Void ::Ne::Kernel::ke_runtime_check(BOOL expr, const Char*, const Char*) {
   if (!expr) {
@@ -36,6 +36,4 @@ Void ::Ne::Kernel::ke_runtime_check(BOOL expr, const Char*, const Char*) {
   }
 }
 
-EXTERN_C const Char* hali_acpi_power_profile(Void) {
-  return kPowerProfileStr;
-}
+// EOF
