@@ -152,9 +152,9 @@ EXTERN_C void ke_io_write(IDevice<const Char*>* obj, const Char* bytes) {
     if (bytes[index] == '\r') {
       kY += kFontSizeY;
       kX = kFontSizeX;
+    } else {
+      kX += kFontSizeX;
     }
-
-    kX += kFontSizeX;
 
     if (kX > kHandoverHeader->f_GOP.f_Width) {
       kX = kFontSizeX;
