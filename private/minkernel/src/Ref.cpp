@@ -4,3 +4,5 @@
 // Official repository: https://github.com/ne-app-eu/krnl
 
 #include <NeKit/Ref.h>
+
+// EOF
