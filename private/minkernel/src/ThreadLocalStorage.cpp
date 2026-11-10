@@ -10,8 +10,8 @@
 
 /***********************************************************************************/
 /// @bugs: 0
-/// @file ThreadLocalStorage.cc
-/// @brief NeKernel Thread Local Storage.
+/// @file ThreadLocalStorage.cpp
+/// @brief Ne.app Kernel Thread Local Storage (TIB handling).
 ///! @author Amlal El Mahrouss (amlal@nekernel.org)
 /***********************************************************************************/
 
@@ -25,6 +25,7 @@ namespace Ne::Kernel {
 
 Boolean tlsi_check_tib(THREAD_INFORMATION_BLOCK* tib_ptr) {
   MUST_PASS(tib_ptr);
+  
   if (!tib_ptr) return false;
 
   return tib_ptr->Cookie[kCookieMag0Idx] == kCookieMag0 &&
@@ -41,6 +42,7 @@ Boolean tlsi_check_tib(THREAD_INFORMATION_BLOCK* tib_ptr) {
  */
 EXTERN_C Bool tls_check_tib(Ne::Kernel::VoidPtr tib_ptr) {
   MUST_PASS(tib_ptr);
+
   if (!tib_ptr) {
     kout << "TLS: Failed because of an invalid TIB...\r";
     return NO;
@@ -49,5 +51,14 @@ EXTERN_C Bool tls_check_tib(Ne::Kernel::VoidPtr tib_ptr) {
   THREAD_INFORMATION_BLOCK* tib = static_cast<THREAD_INFORMATION_BLOCK*>(tib_ptr);
   if (!tib) return NO;
 
-  return Ne::Kernel::tlsi_check_tib(tib);
+  BOOL chk = tlsi_check_tib(tib);
+
+  /// @brief NE_STRICT_TLS_CHECK was introduced to demand stricter checks for TLS operations.
+#ifdef NE_STRICT_TLS_CHECK
+  MUST_PASS(chk);
+#endif
+
+  return chk;
 }
+
+// EOF
