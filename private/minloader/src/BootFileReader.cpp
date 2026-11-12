@@ -171,3 +171,5 @@ VoidPtr Boot::BootFileReader::Blob() {
 UInt64& Boot::BootFileReader::Size() {
   return mSizeFile;
 }
+
+// EOF

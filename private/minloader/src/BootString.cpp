@@ -71,3 +71,5 @@ SizeT Boot::BSetMem(CharacterTypeASCII* src, const CharacterTypeASCII byte,
 
   return cnt;
 }
+
+// EOF

@@ -204,7 +204,7 @@ const Char* BootThread::GetName() {
 Void BootThread::SetName(const Char* name) {
   if (!name) return;
   if (!*name) return;
-  
+
   CopyMem(fBlobName, name, StrLen(name));
 }
 
@@ -212,3 +212,5 @@ bool BootThread::IsValid() {
   return fStartAddress != nullptr;
 }
 }  // namespace Boot
+
+// EOF
