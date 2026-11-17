@@ -48,3 +48,5 @@ EXTERN_C UInt64 hali_hash_fnv64_utf8(const Utf8Char* path) {
 
   return hash;
 }
+
+// EOF

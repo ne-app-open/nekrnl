@@ -147,3 +147,5 @@ EXTERN_C int strcmp(const char* whatToCheck, const char* whatToCheckRight) {
 }
 
 #endif
+
+// EOF

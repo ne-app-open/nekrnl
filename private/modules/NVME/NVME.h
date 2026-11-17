@@ -72,8 +72,9 @@ inline Bool nvme_create_io_command(HAL_NVME_QUEUE* entry, UInt64 baseAddress,
                                    UInt32 identify, Bool provideIdentify = false,
                                    Bool namespaceIdentify = false) {
   if (entry == nullptr) return false;
-
   if (baseAddress == 0) return false;
+  if (identLoAndQueueSizeHi == 0) return false;
+  if (identify == 0) return false;
 
   entry->fOpcode = Opcode;
 

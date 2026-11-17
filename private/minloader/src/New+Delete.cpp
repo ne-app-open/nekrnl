@@ -72,3 +72,5 @@ void operator delete[](void* buf, size_t size) noexcept {
 }
 
 #endif  // __BOOTZ_STANDALONE__
+
+// EOF

@@ -63,3 +63,5 @@ EXTERN_C Ne::Kernel::Void hal_call_enter(Ne::Kernel::UIntPtr rcx_hash, Ne::Kerne
 
   kLocked.clear(std::memory_order_release);
 }
+
+// EOF

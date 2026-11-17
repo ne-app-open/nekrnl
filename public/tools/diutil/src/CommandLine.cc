@@ -59,3 +59,5 @@ SInt32 _NeMain(SInt32 argc, Char** argv) {
   // format disk image to explicit partition map.
   return DI::DIFormatPartitionEPM(img);
 }
+
+// EOF

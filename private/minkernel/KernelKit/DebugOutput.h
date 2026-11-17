@@ -187,7 +187,7 @@ inline TerminalDevice& operator<<(TerminalDevice& src, const Long& num) {
 #undef kout
 #endif  // ifdef kout
 
-#define kout TerminalDevice::The() << __FILE__ << ": "
+#define kout TerminalDevice::The() << "[DEBUG] " << __FILE__ << ": "
 
 #ifdef kendl
 #undef kendl
@@ -199,7 +199,7 @@ inline TerminalDevice& operator<<(TerminalDevice& src, const Long& num) {
 #undef kout8
 #endif  // ifdef kout8
 
-#define kout8 Utf8TerminalDevice::The() << __FILE__ << ": "
+#define kout8 Utf8TerminalDevice::The() << "[DEBUG] " __FILE__ << ": "
 
 #ifdef kendl8
 #undef kendl8

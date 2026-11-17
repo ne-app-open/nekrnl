@@ -74,3 +74,5 @@ EXTERN_C Void hali_remove_entry(const UInt64 hash) {
 
   kLocked.clear(std::memory_order_release);
 }
+
+// EOF

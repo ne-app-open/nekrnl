@@ -112,6 +112,12 @@ IMPORT_C UInt32 IoWriteFile(_Input Ref file_desc, _Output VoidPtr out_data, UInt
 /// @param sz_data the size of the data to read.
 IMPORT_C UInt32 IoReadFile(_Input Ref file_desc, _Output VoidPtr* out_data, UInt64 sz_data);
 
+/// @brief Read data from a file.
+/// @param file_desc the file descriptor.
+/// @param out_data the data to read.
+/// @param sz_data the size of the data to read.
+IMPORT_C UInt32 IoReadFileII(_Input Ref file_desc, _Output VoidPtr out_data, UInt64 sz_data);
+
 /// @brief Rewind the file pointer to the beginning of the file.
 /// @param file_desc the file descriptor.
 /// @return the number of bytes read.
@@ -126,7 +132,7 @@ IMPORT_C UInt64 IoTellFile(_Input Ref file_desc);
 IMPORT_C UInt64 IoSeekFile(_Input Ref file_desc, UInt64 file_offset);
 
 // ------------------------------------------------------------------------
-// Process API.
+/// @brief NeKrnl Process API.
 // ------------------------------------------------------------------------
 
 /// @brief Spawns a Thread Information Block and Global Information Block inside the current
