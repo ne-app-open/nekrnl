@@ -7,10 +7,14 @@
 #include <NeKit/Ref.h>
 
 // begin of ascii 'readable' characters. (A, C, C, 1, 2)
+#ifndef kGUIDAsciiBegin
 #define kGUIDAsciiBegin 47
+#endif
 
 // @brief Size of UUID.
+#ifndef kGUIDSize
 #define kGUIDSize 37
+#endif
 
 namespace Ne::Kernel::CF::XRN::Version1 {
 auto cf_make_sequence(const Array<UInt32, 10>& uuidSeq) -> Ref<GUIDSequence*> {

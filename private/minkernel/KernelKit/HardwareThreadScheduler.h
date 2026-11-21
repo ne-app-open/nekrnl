@@ -57,8 +57,8 @@ class HardwareThread final {
   explicit operator bool();
 
  public:
-  Void Wake(const BOOL wakeup = false);
-  Void Busy(const BOOL busy = false);
+  Void Wake(const BOOL& wakeup = false);
+  Void Busy(const BOOL& busy = false);
 
  public:
   BOOL Switch(HAL::StackFramePtr frame);

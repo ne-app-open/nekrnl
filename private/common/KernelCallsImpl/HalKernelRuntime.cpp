@@ -9,4 +9,6 @@
 #define IMPORT_C extern "C"
 #endif
 
+using namespace ::Ne::Kernel;
+
 // EOF

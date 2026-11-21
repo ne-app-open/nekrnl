@@ -75,7 +75,7 @@ HAL::StackFramePtr HardwareThread::StackFrame() {
 /// @brief Enables the busy field.
 /***********************************************************************************/
 
-Void HardwareThread::Busy(Bool busy) {
+Void HardwareThread::Busy(const Bool& busy) {
   this->fBusy = busy;
 }
 
@@ -91,7 +91,7 @@ HardwareThread::operator bool() {
 /// @brief Wakeup the processor.
 /***********************************************************************************/
 
-Void HardwareThread::Wake(const bool wakeup) {
+Void HardwareThread::Wake(const Bool& wakeup) {
   this->fWakeup = wakeup;
 }
 
